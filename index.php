@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title  -->
-    <title>Essence - Fashion Ecommerce Template</title>
+    <title>NexusHardware</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -74,7 +74,7 @@
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop.html">Shop</a></li>
+                                    <li><a href="views/shop.php">Shop</a></li>
                                     <li><a href="single-product-details.html">Product Details</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="blog.html">Blog</a></li>
