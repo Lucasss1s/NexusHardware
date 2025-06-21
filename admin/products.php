@@ -1,9 +1,10 @@
 <?php
 require_once '../config/connection.php';
 require_once '../models/Product.php';
+require_once '../models/Category.php';
 
 try {
-    $stmt = $conn->query("SELECT * FROM producto ORDER BY id DESC");
+    $stmt = $conn->query("SELECT * FROM product ORDER BY id DESC");
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $products = [];
@@ -15,7 +16,7 @@ try {
             (float) $row['price'],
             $row['old_price'] !== null ? (float) $row['old_price'] : null,
             $row['discount'] ?? null,
-            $row['category'],
+            (int) $row['category_id'],
             $row['img'],
             $row['img_hover']
         );
@@ -36,7 +37,7 @@ try {
 <body>
     <h1>Product Management</h1>
     <?php if (isset($_GET['deleted'])): ?>
-    <div class="success">Product deleted successfully.</div>
+        <div class="success">Product deleted successfully.</div>
     <?php endif; ?>
 
     <a href="add_product.php" class="add-btn">+ Add Product</a>
@@ -56,15 +57,19 @@ try {
         </thead>
         <tbody>
             <?php foreach ($products as $product): ?>
+                <?php
+                    $category = Category::getById($product->getCategoryId(), $conn);
+                    $categoryName = $category ? $category->getName() : '-';
+                ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
-                    <td><img src="../<?= $product->getImage() ?>" width="60"></td>
+                    <td><img src="<?= $product->getImage() ?>" width="60"></td>
                     <td><?= $product->getName() ?></td>
                     <td><?= $product->getBrand() ?></td>
                     <td>$<?= $product->getPrice() ?></td>
                     <td><?= $product->getOldPrice() ? "$" . $product->getOldPrice() : '-' ?></td>
                     <td><?= $product->getDiscount() ?: '-' ?></td>
-                    <td><?= $product->getCategory() ?: '-' ?></td>
+                    <td><?= htmlspecialchars($categoryName) ?></td>
                     <td class="actions">
                         <a href="edit_product.php?id=<?= $product->getId() ?>" class="edit-btn">Edit</a>
                         <a href="delete_product.php?id=<?= $product->getId() ?>" class="delete-btn" onclick="return confirm('Are you sure?')">Delete</a>

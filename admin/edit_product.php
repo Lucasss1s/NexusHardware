@@ -1,6 +1,7 @@
 <?php
 require_once '../config/connection.php';
 require_once '../models/Product.php';
+require_once '../models/Category.php';
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
@@ -9,6 +10,7 @@ if (!$id) {
 
 $success = '';
 $error = '';
+$allCategories = Category::getAll($conn);
 
 try {
     $product = Product::getById((int)$id, $conn);
@@ -22,7 +24,7 @@ try {
         $product->setPrice((float)$_POST['price']);
         $product->setOldPrice($_POST['old_price'] !== '' ? (float)$_POST['old_price'] : null);
         $product->setDiscount($_POST['discount'] ?: null);
-        $product->setCategory($_POST['category'] ?: '');
+        $product->setCategoryId((int)$_POST['category_id']);
         $product->setImage($_POST['img'] ?: 'img/product-img/default.jpg');
         $product->setImageHover($_POST['img_hover'] ?: 'img/product-img/default-hover.jpg');
 
@@ -72,8 +74,15 @@ try {
         <label>Discount (optional):</label>
         <input type="text" name="discount" value="<?= $product->getDiscount() ?>">
 
-        <label>Category (optional):</label>
-        <input type="text" name="category" value="<?= $product->getCategory() ?>">
+        <label>Category:</label>
+        <select name="category_id" required>
+            <?php foreach ($allCategories as $category): ?>
+                <option value="<?= $category->getId() ?>" 
+                    <?= $category->getId() === $product->getCategoryId() ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($category->getName()) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
         <label>Image URL:</label>
         <input type="text" name="img" value="<?=$product->getImage() ?>">

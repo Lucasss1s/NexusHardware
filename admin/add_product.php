@@ -1,29 +1,33 @@
 <?php
 require_once '../config/connection.php';
 require_once '../models/Product.php';
+require_once '../models/Category.php';
 
 $success = '';
 $error = '';
+$allCategories = Category::getAll($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Crear instancia del producto con los datos del formulario
         $product = new Product(
-            0, // el ID se autoincrementa en la base
+            0,
             $_POST['name'],
             $_POST['brand'],
             (float) $_POST['price'],
             $_POST['old_price'] !== '' ? (float) $_POST['old_price'] : null,
             $_POST['discount'] ?: null,
-            $_POST['category'],
+            (int) $_POST['category_id'],
             $_POST['img'] ?: 'img/product-img/default.jpg',
             $_POST['img_hover'] ?: 'img/product-img/default-hover.jpg'
         );
 
+
         // Preparar la consulta con los datos del objeto
-        $stmt = $conn->prepare("INSERT INTO producto 
-            (name, brand, price, old_price, discount, category, img, img_hover)
+        $stmt = $conn->prepare("INSERT INTO product 
+            (name, brand, price, old_price, discount, category_id, img, img_hover)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+
 
         $stmt->execute([
             $product->getName(),
@@ -31,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product->getPrice(),
             $product->getOldPrice(),
             $product->getDiscount(),
-            $product->getCategory(),
+            $product->getCategoryId(),
             $product->getImage(),
             $product->getImageHover()
         ]);
@@ -79,13 +83,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="discount">
 
         <label>Category:</label>
-        <input type="text" name="category" required>
+        <select name="category_id" required>
+            <?php foreach ($allCategories as $category): ?>
+                <option value="<?= $category->getId() ?>">
+                    <?= $category->getName() ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
 
         <label>Image URL:</label>
-        <input type="text" name="img" value="img/product-img/default.jpg" required>
+        <input type="text" name="img" value="../img/product-img/default.jpg" required>
 
         <label>Hover Image URL:</label>
-        <input type="text" name="img_hover" value="img/product-img/default-hover.jpg" required>
+        <input type="text" name="img_hover" value="../img/product-img/default-hover.jpg" required>
 
         <button type="submit">Save</button>
     </form>

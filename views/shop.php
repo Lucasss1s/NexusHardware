@@ -1,5 +1,7 @@
 <?php
-require_once 'config/connection.php';
+require_once '../config/connection.php';
+require_once '../models/Product.php';
+require_once '../models/Category.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +18,11 @@ require_once 'config/connection.php';
     <title>Essence - Fashion Ecommerce Template</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="../img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/core-style.css">
+    <link rel="stylesheet" href="../style.css">
 
 </head>
 
@@ -31,7 +33,7 @@ require_once 'config/connection.php';
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.html"><img src="../img/core-img/logo.png" alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -72,7 +74,7 @@ require_once 'config/connection.php';
                                         <li><a href="shop.html">Trench</a></li>
                                     </ul>
                                     <div class="single-mega cn-col-4">
-                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                        <img src="../img/bg-img/bg-6.jpg" alt="">
                                     </div>
                                 </div>
                             </li>
@@ -107,15 +109,15 @@ require_once 'config/connection.php';
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
+                    <a href="#"><img src="../img/core-img/heart.svg" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="img/core-img/user.svg" alt=""></a>
+                    <a href="#"><img src="../img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                    <a href="#" id="essenceCartBtn"><img src="../img/core-img/bag.svg" alt=""> <span>3</span></a>
                 </div>
             </div>
 
@@ -130,7 +132,7 @@ require_once 'config/connection.php';
 
         <!-- Cart Button -->
         <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+            <a href="#" id="rightSideCart"><img src="../img/core-img/bag.svg" alt=""> <span>3</span></a>
         </div>
 
         <div class="cart-content d-flex">
@@ -140,10 +142,10 @@ require_once 'config/connection.php';
                 <!-- Single Cart Item -->
                 <div class="single-cart-item">
                     <a href="#" class="product-image">
-                        <img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
+                        <img src="../img/product-img/product-1.jpg" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
                             <span class="badge">Mango</span>
                             <h6>Button Through Strap Mini Dress</h6>
                             <p class="size">Size: S</p>
@@ -156,10 +158,10 @@ require_once 'config/connection.php';
                 <!-- Single Cart Item -->
                 <div class="single-cart-item">
                     <a href="#" class="product-image">
-                        <img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
+                        <img src="../img/product-img/product-2.jpg" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
                             <span class="badge">Mango</span>
                             <h6>Button Through Strap Mini Dress</h6>
                             <p class="size">Size: S</p>
@@ -172,10 +174,10 @@ require_once 'config/connection.php';
                 <!-- Single Cart Item -->
                 <div class="single-cart-item">
                     <a href="#" class="product-image">
-                        <img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
+                        <img src="../img/product-img/product-3.jpg" class="cart-thumb" alt="">
                         <!-- Cart Item Desc -->
                         <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
+                            <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
                             <span class="badge">Mango</span>
                             <h6>Button Through Strap Mini Dress</h6>
                             <p class="size">Size: S</p>
@@ -205,7 +207,7 @@ require_once 'config/connection.php';
     <!-- ##### Right Side Cart End ##### -->
 
     <!-- ##### Breadcumb Area Start ##### -->
-    <div class="breadcumb_area bg-img" style="background-image: url(img/bg-img/breadcumb.jpg);">
+    <div class="breadcumb_area bg-img" style="background-image: url(../img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -231,27 +233,28 @@ require_once 'config/connection.php';
                             <h6 class="widget-title mb-30">Catagories</h6>
 
                             <!--  Catagories  -->
+                            <?php
+                            $categories = Category::getAll($conn);
+                            ?>
                             <div class="catagories-menu">
                                 <ul id="menu-content2" class="menu-content collapse show">
                                     <!-- Single Item -->
-                                    <li data-toggle="collapse" data-target="#clothing">
-                                        <a href="#">clothing</a>
-                                        <ul class="sub-menu collapse show" id="clothing">
+                                    <li data-toggle="collapse" data-target="#hardware">
+                                        <a href="#">Hardware</a>
+                                        <ul class="sub-menu collapse show" id="hardware">
                                             <li><a href="shop.php">All</a></li>
-                                            <li><a href="?category=processor">Processors</a></li>
-                                            <li><a href="?category=graphic_card">Graphics Cards</a></li>
-                                            <li><a href="?category=ram_memory">RAM Memory</a></li>
-                                            <li><a href="#">Jackets &amp; Coats</a></li>
-                                            <li><a href="#">Jeans</a></li>
-                                            <li><a href="#">Pants &amp; Leggings</a></li>
-                                            <li><a href="#">Rompers &amp; Jumpsuits</a></li>
-                                            <li><a href="#">Shirts &amp; Blouses</a></li>
-                                            <li><a href="#">Shirts</a></li>
-                                            <li><a href="#">Sweaters &amp; Knits</a></li>
+                                            <?php foreach ($categories as $cat): ?>
+                                                <li>
+                                                    <a href="?category=<?= htmlspecialchars($cat->getName()) ?>">
+                                                        <?= htmlspecialchars($cat->getName()) ?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
 
                         <!-- ##### Single Widget ##### -->
@@ -336,28 +339,41 @@ require_once 'config/connection.php';
                             </div>
                         </div>
 
-                        <?php
-                        $current_category = $_GET['category'] ?? null;
+                        <?php           
+                        $currentCategoryName = $_GET['category'] ?? null;
+                        $filteredProducts = [];
 
                         try {
-                            if ($current_category) {
-                                $stmt = $conn->prepare("SELECT * FROM producto WHERE category = :cat");
-                                $stmt->execute([':cat' => $current_category]);
+                            if ($currentCategoryName) {
+                                // Buscar la categoría por nombre
+                                $category = Category::getByName($currentCategoryName, $conn);
+
+                                if ($category) {
+                                    $categoryId = $category->getId();
+
+                                    // Obtener productos de esa categoría
+                                    $stmt = $conn->prepare("SELECT * FROM product WHERE category_id = :cat_id");
+                                    $stmt->execute([':cat_id' => $categoryId]);
+                                } else {
+                                    // Categoría no encontrada
+                                    $stmt = $conn->query("SELECT * FROM product WHERE 0"); // devuelve vacío
+                                }
                             } else {
-                                $stmt = $conn->query("SELECT * FROM producto");
+                                // Sin filtro, obtener todos los productos
+                                $stmt = $conn->query("SELECT * FROM product");
                             }
 
-                            $filtered_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+                            $filteredProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         } catch (PDOException $e) {
                             echo "Error al obtener productos: " . $e->getMessage();
-                            $filtered_products = [];
+                            $filteredProducts = [];
                         }
                         ?>
 
+
                         <div class="row">
                             <?php                  
-                            foreach ($filtered_products as $p): ?>
+                            foreach ($filteredProducts  as $p): ?>
                                 <div class="col-12 col-sm-6 col-lg-4">
                                     <div class="single-product-wrapper">
                                         <!-- Product Image -->
@@ -432,7 +448,7 @@ require_once 'config/connection.php';
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="#"><img src="../img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
                         <div class="footer_menu">
@@ -503,17 +519,17 @@ require_once 'config/connection.php';
     <!-- ##### Footer Area End ##### -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
+    <script src="../js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
+    <script src="../js/plugins.js"></script>
     <!-- Classy Nav js -->
-    <script src="js/classy-nav.min.js"></script>
+    <script src="../js/classy-nav.min.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="../js/active.js"></script>
 
 </body>
 

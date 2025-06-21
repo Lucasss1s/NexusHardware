@@ -1,5 +1,6 @@
 <?php
 require_once '../config/connection.php';
+require_once '../models/Product.php';
 
 $id = $_GET['id'] ?? null;
 
@@ -7,12 +8,11 @@ if (!$id) {
     die("Missing product ID.");
 }
 
-try {
-    $stmt = $conn->prepare("DELETE FROM producto WHERE id = :id");
-    $stmt->execute([':id' => $id]);
-
-    header("Location: products.php?deleted=1");
+if (Product::deleteById((int)$id, $conn)) {
+    header("Location: products.php?deleted=ok");
     exit;
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+} else {
+    echo "Failed to delete product.";
 }
+
+?>
