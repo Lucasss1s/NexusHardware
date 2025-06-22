@@ -69,7 +69,7 @@ try {
                     <td>$<?= $product->getPrice() ?></td>
                     <td><?= $product->getOldPrice() ? "$" . $product->getOldPrice() : '-' ?></td>
                     <td><?= $product->getDiscount() ?: '-' ?></td>
-                    <td><?= htmlspecialchars($categoryName) ?></td>
+                    <td><?= $categoryName?></td>
                     <td class="actions">
                         <a href="edit_product.php?id=<?= $product->getId() ?>" class="edit-btn">Edit</a>
                         <a href="delete_product.php?id=<?= $product->getId() ?>" class="delete-btn" onclick="return confirm('Are you sure?')">Delete</a>

@@ -940,6 +940,41 @@ img {
         margin-bottom: 30px; } }
 
 /* :: 10.0 Single Product Details Area CSS */
+.product-reviews {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+.single-review {
+    border-radius: 4px;
+}
+.product-reviews {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    overflow-y: auto;
+    max-height: 280px;
+}
+.product-reviews::-webkit-scrollbar {
+    width: 6px;
+}
+.product-reviews::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+}
+.single-review {
+    border-radius: 4px;
+}
+.product-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.product-image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 .single_product_details_area {
   position: relative;
   z-index: 100;

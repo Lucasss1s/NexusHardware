@@ -1,3 +1,21 @@
+<?php
+require_once '../config/connection.php';
+require_once '../models/Review.php';
+require_once '../models/Product.php';
+
+$productId = $_GET['id'] ?? null;
+if (!$productId) {
+    die("Product ID is missing.");
+}
+
+$product = Product::getById((int)$productId, $conn);
+if (!$product) {
+    die("Product not found.");
+}
+
+$reviews = Review::getByProductId((int)$productId, $conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +30,11 @@
     <title>Essence - Fashion Ecommerce Template</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="../img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/core-style.css">
+    <link rel="stylesheet" href="../style.css">
 
 </head>
 
@@ -27,7 +45,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a class="nav-brand" href="index.html"><img src="../img/core-img/logo.png" alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -68,7 +86,7 @@
                                         <li><a href="shop.html">Trench</a></li>
                                     </ul>
                                     <div class="single-mega cn-col-4">
-                                        <img src="img/bg-img/bg-6.jpg" alt="">
+                                        <img src="../img/bg-img/bg-6.jpg" alt="">
                                     </div>
                                 </div>
                             </li>
@@ -103,15 +121,15 @@
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="#"><img src="img/core-img/heart.svg" alt=""></a>
+                    <a href="#"><img src="../img/core-img/heart.svg" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="img/core-img/user.svg" alt=""></a>
+                    <a href="#"><img src="../img/core-img/user.svg" alt=""></a>
                 </div>
                 <!-- Cart Area -->
                 <div class="cart-area">
-                    <a href="#" id="essenceCartBtn"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
+                    <a href="#" id="essenceCartBtn"><img src="../img/core-img/bag.svg" alt=""> <span>3</span></a>
                 </div>
             </div>
 
@@ -119,125 +137,38 @@
     </header>
     <!-- ##### Header Area End ##### -->
 
-    <!-- ##### Right Side Cart Area ##### -->
-    <div class="cart-bg-overlay"></div>
-
-    <div class="right-side-cart-area">
-
-        <!-- Cart Button -->
-        <div class="cart-button">
-            <a href="#" id="rightSideCart"><img src="img/core-img/bag.svg" alt=""> <span>3</span></a>
-        </div>
-
-        <div class="cart-content d-flex">
-
-            <!-- Cart List Area -->
-            <div class="cart-list">
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-1.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-2.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Single Cart Item -->
-                <div class="single-cart-item">
-                    <a href="#" class="product-image">
-                        <img src="img/product-img/product-3.jpg" class="cart-thumb" alt="">
-                        <!-- Cart Item Desc -->
-                        <div class="cart-item-desc">
-                          <span class="product-remove"><i class="fa fa-close" aria-hidden="true"></i></span>
-                            <span class="badge">Mango</span>
-                            <h6>Button Through Strap Mini Dress</h6>
-                            <p class="size">Size: S</p>
-                            <p class="color">Color: Red</p>
-                            <p class="price">$45.00</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Cart Summary -->
-            <div class="cart-amount-summary">
-
-                <h2>Summary</h2>
-                <ul class="summary-table">
-                    <li><span>subtotal:</span> <span>$274.00</span></li>
-                    <li><span>delivery:</span> <span>Free</span></li>
-                    <li><span>discount:</span> <span>-15%</span></li>
-                    <li><span>total:</span> <span>$232.00</span></li>
-                </ul>
-                <div class="checkout-btn mt-100">
-                    <a href="checkout.html" class="btn essence-btn">check out</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ##### Right Side Cart End ##### -->
-
     <!-- ##### Single Product Details Area Start ##### -->
     <section class="single_product_details_area d-flex align-items-center">
 
         <!-- Single Product Thumb -->
         <div class="single_product_thumb clearfix">
-            <div class="product_thumbnail_slides owl-carousel">
-                <img src="img/product-img/product-big-1.jpg" alt="">
-                <img src="img/product-img/product-big-2.jpg" alt="">
-                <img src="img/product-img/product-big-3.jpg" alt="">
+<!--             <div class="product_thumbnail_slides owl-carousel">
+                <img src="../img/product-img/product-big-2.jpg" alt="">
+                <img src="../img/product-img/product-big-3.jpg" alt="">
+            </div> -->
+            <div class="product-image-container">
+                <img src="<?= $product->getImage() ?>" alt="<?= htmlspecialchars($product->getName()) ?>">
             </div>
         </div>
 
         <!-- Single Product Description -->
         <div class="single_product_desc clearfix">
-            <span>mango</span>
-            <a href="cart.html">
-                <h2>One Shoulder Glitter Midi Dress</h2>
-            </a>
-            <p class="product-price"><span class="old-price">$65.00</span> $49.00</p>
-            <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.</p>
+            <span><?=$product->getBrand() ?></span>
+            <h2><?=$product->getName() ?></h2>
+            <h3>$<?= number_format($product->getPrice(), 2) ?></h3>
+
+            <?php if ($product->getOldPrice()): ?>
+                <p><del>$<?= number_format($product->getOldPrice(), 2) ?></del></p>
+            <?php endif; ?>
+
+            <?php if ($product->getDiscount()): ?>
+                <p class="text-success">Discount: <?= htmlspecialchars($product->getDiscount()) ?></p>
+            <?php endif; ?>
+            <p class="product-desc">Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, 
+                nec maximus est sollicitudin.</p>
 
             <!-- Form -->
             <form class="cart-form clearfix" method="post">
-                <!-- Select Box -->
-                <div class="select-box d-flex mt-50 mb-30">
-                    <select name="select" id="productSize" class="mr-5">
-                        <option value="value">Size: XL</option>
-                        <option value="value">Size: X</option>
-                        <option value="value">Size: M</option>
-                        <option value="value">Size: S</option>
-                    </select>
-                    <select name="select" id="productColor">
-                        <option value="value">Color: Black</option>
-                        <option value="value">Color: White</option>
-                        <option value="value">Color: Red</option>
-                        <option value="value">Color: Purple</option>
-                    </select>
-                </div>
                 <!-- Cart & Favourite Box -->
                 <div class="cart-fav-box d-flex align-items-center">
                     <!-- Cart -->
@@ -248,6 +179,21 @@
                     </div>
                 </div>
             </form>
+            <div class="product-reviews mt-5" style="max-height: 280px; overflow-y: auto; scrollbar-width: thin;">
+                <h4 class="mb-3">Customer Reviews</h4>
+                <?php if (count($reviews) === 0): ?>
+                    <p class="text-muted">This product has no reviews yet.</p>
+                <?php else: ?>
+                    <?php foreach ($reviews as $review): ?>
+                        <div class="single-review p-3 mb-2" style="background: #f9f9f9; border-left: 4px solid #0315ff;">
+                            <strong><?= $review->getRating() ?>/5 ⭐</strong>
+                            <p class="mb-1"><?= htmlspecialchars($review->getComment()) ?></p>
+                            <small class="text-muted"><?= date('F j, Y', strtotime($review->getCreatedAt())) ?></small>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+
         </div>
     </section>
     <!-- ##### Single Product Details Area End ##### -->
@@ -261,7 +207,7 @@
                     <div class="single_widget_area d-flex mb-30">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="#"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="#"><img src="../img/core-img/logo2.png" alt=""></a>
                         </div>
                         <!-- Footer Menu -->
                         <div class="footer_menu">
@@ -332,17 +278,17 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
+    <script src="../js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
+    <script src="../js/plugins.js"></script>
     <!-- Classy Nav js -->
-    <script src="js/classy-nav.min.js"></script>
+    <script src="../js/classy-nav.min.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="../js/active.js"></script>
 
 </body>
 
