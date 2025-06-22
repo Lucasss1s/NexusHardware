@@ -201,9 +201,10 @@ include '../components/header.php';
                                 <div class="single-product-wrapper">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <img src="<?= $p['img'] ?>" alt="">
-                                        <img class="hover-img" src="<?= $p['img_hover'] ?>" alt="">
-
+                                        <a href="single_product.php?id=<?= $p['id'] ?>">
+                                            <img src="<?= $p['img'] ?>" alt="">
+                                            <img class="hover-img" src="<?= $p['img_hover'] ?>" alt="">
+                                        </a>
                                         <?php if ($p['discount']): ?>
                                             <div class="product-badge offer-badge">
                                                 <span><?= $p['discount'] ?></span>
@@ -218,7 +219,7 @@ include '../components/header.php';
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span><?= $p['brand'] ?></span>
-                                        <a href="single-product-details.html">
+                                        <a href="single_product.php?id=<?= $p['id'] ?>">
                                             <h6><?= $p['name'] ?></h6>
                                         </a>
                                         <p class="product-price">
