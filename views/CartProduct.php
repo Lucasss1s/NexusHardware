@@ -84,6 +84,11 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </tbody>
         </table>
+
+        <!-- Botón de Comprar -->
+        <form action="checkout.php" method="post" class="mt-3 text-right">
+            <button type="submit" class="btn btn-success">Comprar</button>
+        </form>
     <?php endif; ?>
 </div>
 

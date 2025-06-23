@@ -49,5 +49,24 @@ class CartItem {
             ]);
         }
     }
+
+    // Obtener todos los ítems de un carrito por ID
+public static function getByCartId(PDO $conn, int $cartId): array {
+    $stmt = $conn->prepare("
+        SELECT ci.id as cart_item_id, ci.quantity, p.id as product_id, p.name, p.price
+        FROM cart_item ci
+        JOIN product p ON ci.product_id = p.id
+        WHERE ci.cart_id = :cart_id
+    ");
+    $stmt->execute([':cart_id' => $cartId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+    // Eliminar todos los ítems de un carrito por ID
+    public static function deleteByCartId(PDO $conn, int $cartId): void {
+        $stmt = $conn->prepare("DELETE FROM cart_item WHERE cart_id = :cart_id");
+        $stmt->execute([':cart_id' => $cartId]);
+    }
 }
 ?>
