@@ -10,9 +10,8 @@ include 'components/header.php';
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
-                        <h6>Ravi</h6>
-                        <h2>Winter Collection</h2>
-                        <a href="#" class="btn essence-btn">view collection</a>
+                        <h2>Featured Products</h2>
+                        <a href="/NexusHardware/views/shop.php" class="btn essence-btn">view Products</a>
                     </div>
                 </div>
             </div>
@@ -28,7 +27,7 @@ include 'components/header.php';
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg2.png);">
                         <div class="catagory-content">
-                            <a href="#">Clothing</a>
+                            <a href="/NexusHardware/views/shop.php">Processors</a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +35,7 @@ include 'components/header.php';
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg3.png);">
                         <div class="catagory-content">
-                            <a href="#">Shoes</a>
+                            <a href="/NexusHardware/views/shop.php">Graphics</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +43,7 @@ include 'components/header.php';
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg4.png);">
                         <div class="catagory-content">
-                            <a href="#">Accessories</a>
+                            <a href="/NexusHardware/views/shop.php">Motherboard</a>
                         </div>
                     </div>
                 </div>
@@ -72,6 +71,40 @@ include 'components/header.php';
         </div>
     </div>
     <!-- ##### CTA Area End ##### -->
+
+    <!-- ##### Info Section Start ##### -->
+<section class="info-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <!-- Payment Info -->
+            <div class="col-md-4">
+                <div class="info-box">
+                    <i class="fa fa-credit-card fa-2x mb-3"></i>
+                    <h5>Hasta 18 cuotas</h5>
+                    <p>Abonando con tarjetas de crédito</p>
+                </div>
+            </div>
+            <!-- Shipping Info -->
+            <div class="col-md-4">
+                <div class="info-box">
+                    <i class="fa fa-truck fa-2x mb-3"></i>
+                    <h5>Envíos a todo el país</h5>
+                    <p>A través de OCA</p>
+                </div>
+            </div>
+            <!-- Warranty Info -->
+            <div class="col-md-4">
+                <div class="info-box">
+                    <i class="fa fa-shield fa-2x mb-3"></i>
+                    <h5>Garantía oficial</h5>
+                    <p>De hasta 36 meses en todos los productos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Info Section End ##### -->
+
 
     <!-- ##### New Arrivals Area Start ##### -->
     <section class="new_arrivals_area section-padding-80 clearfix">
@@ -232,27 +265,27 @@ include 'components/header.php';
     <div class="brands-area d-flex align-items-center justify-content-between">
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/brand1.png" alt="">
+            <img src="img/core-img/intelLogo.png" alt="">
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/brand2.png" alt="">
+            <img src="img/core-img/logoMsi.png" alt="">
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/brand3.png" alt="">
+            <img src="img/core-img/asusLogo.jpg" alt="">
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/brand4.png" alt="">
+            <img src="img/core-img/AMDlogo.png" alt="">
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/brand5.png" alt="">
+            <img src="img/core-img/nvidiaLogo.png" alt="">
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/brand6.png" alt="">
+            <img src="img/core-img/logitechLogo.png" alt="">
         </div>
     </div>
     <!-- ##### Brands Area End ##### -->

@@ -40,7 +40,7 @@ try {
     $conn->commit();
 
     // Redirigir al historial
-    header("Location: ../views/purchase_history.php");
+    header("Location: ../views/compra_exitosa.php");
     exit;
 
 } catch (Exception $e) {
