@@ -1,8 +1,15 @@
 <?php
-session_start();
-session_unset();   // Limpia todas las variables de sesión
-session_destroy(); // Destruye la sesión actual
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-header("Location: index.php"); // Redirige al home
+unset($_SESSION['user']);
+unset($_SESSION['cart_id']);
+
+session_unset();
+session_destroy();
+
+// Redirigir correctamente al index desde /controllers/
+header("Location: /NexusHardware/index.php");
 exit;
 ?>

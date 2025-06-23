@@ -1,9 +1,12 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once '../config/connection.php';
 require_once '../models/User.php';
 require_once '../models/Admin.php';
 require_once '../models/Customer.php';
+require_once '../models/Cart.php'; // <-- agregamos Cart
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
@@ -43,16 +46,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'name' => $admin->getFullName(),
                 'role' => 'admin'
             ];
-            header("Location: ../admin/index.php"); // ajustá esta ruta a tu panel admin
+            header("Location: ../admin/index.php");
             exit;
+
         } elseif ($customer) {
             $_SESSION['user'] = [
                 'id' => $customer->getId(),
                 'name' => $customer->getFullName(),
                 'role' => 'customer'
             ];
-            header("Location: ../index.php"); // o algún dashboard de usuario
+
+            // ✅ GESTIÓN DEL CARRITO PARA CUSTOMER
+            $stmtCart = $conn->prepare("SELECT id FROM cart WHERE user_id = :user_id LIMIT 1");
+            $stmtCart->execute([':user_id' => $customer->getId()]);
+            $cart = $stmtCart->fetch(PDO::FETCH_ASSOC);
+
+            if ($cart) {
+                $_SESSION['cart_id'] = $cart['id'];
+            } else {
+                $newCart = Cart::create($conn, $customer->getId());
+                if ($newCart) {
+                    $_SESSION['cart_id'] = $newCart->getId();
+                }
+            }
+
+            header("Location: ../index.php");
             exit;
+
         } else {
             header("Location: ../views/login_register.php?error=User type not recognized");
             exit;
@@ -62,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../views/login_register.php?error=Login failed: " . urlencode($e->getMessage()));
         exit;
     }
+
 } else {
     header("Location: ../views/login_register.php");
     exit;

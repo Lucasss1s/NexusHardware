@@ -3,31 +3,31 @@ class Cart {
     private int $id;
     private string $createdAt;
     private int $totalItems;
-    private ?int $clientId;
+    private ?int $userId;
 
-    public function __construct(int $id, string $createdAt, int $totalItems, ?int $clientId) {
+    public function __construct(int $id, string $createdAt, int $totalItems, ?int $userId) {
         $this->id = $id;
         $this->createdAt = $createdAt;
         $this->totalItems = $totalItems;
-        $this->clientId = $clientId;
+        $this->userId = $userId;
     }
 
     // Getters
     public function getId(): int { return $this->id; }
     public function getCreatedAt(): string { return $this->createdAt; }
     public function getTotalItems(): int { return $this->totalItems; }
-    public function getClientId(): ?int { return $this->clientId; }
+    public function getUserId(): ?int { return $this->userId; }
 
     // Setters
     public function setTotalItems(int $totalItems): void { $this->totalItems = $totalItems; }
-    public function setClientId(?int $clientId): void { $this->clientId = $clientId; }
+    public function setUserId(?int $userId): void { $this->userId = $userId; }
 
     // Crear nuevo carrito
-    public static function create(PDO $conn, ?int $clientId = null): ?Cart {
-        $stmt = $conn->prepare("INSERT INTO cart (total_items, client_id) VALUES (0, :client_id)");
-        if ($stmt->execute([':client_id' => $clientId])) {
+    public static function create(PDO $conn, ?int $userId = null): ?Cart {
+        $stmt = $conn->prepare("INSERT INTO cart (total_items, user_id) VALUES (0, :user_id)");
+        if ($stmt->execute([':user_id' => $userId])) {
             $id = $conn->lastInsertId();
-            return new Cart((int)$id, date('Y-m-d H:i:s'), 0, $clientId);
+            return new Cart((int)$id, date('Y-m-d H:i:s'), 0, $userId);
         }
         return null;
     }
@@ -42,7 +42,7 @@ class Cart {
                 (int)$data['id'],
                 $data['created_at'],
                 (int)$data['total_items'],
-                $data['client_id'] !== null ? (int)$data['client_id'] : null
+                $data['user_id'] !== null ? (int)$data['user_id'] : null
             );
         }
         return null;

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once '../config/connection.php';
 require_once '../models/Product.php';
@@ -12,17 +14,31 @@ require_once '../models/CartItem.php';
 // Manejar el agregar al carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && isset($_POST['product_id'])) {
     if (!isset($_SESSION['cart_id'])) {
-        $cart = Cart::create($conn, null);
-        $_SESSION['cart_id'] = $cart->getId();
+        $userId = $_SESSION['user']['id'] ?? null;
+
+        if ($userId) {
+            $stmt = $conn->prepare("SELECT id FROM cart WHERE user_id = :user_id LIMIT 1");
+            $stmt->execute([':user_id' => $userId]);
+            $existingCart = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($existingCart) {
+                $_SESSION['cart_id'] = $existingCart['id'];
+                $cart = Cart::getById($existingCart['id'], $conn);
+            } else {
+                $cart = Cart::create($conn, $userId);
+                $_SESSION['cart_id'] = $cart->getId();
+            }
+        } else {
+            // Usuario no logueado: carrito sin user_id (opcional)
+            $cart = Cart::create($conn, null);
+            $_SESSION['cart_id'] = $cart->getId();
+        }
     } else {
         $cart = Cart::getById($_SESSION['cart_id'], $conn);
     }
 
     $productId = (int)$_POST['product_id'];
     CartItem::addToCart($conn, $cart->getId(), $productId, 1);
-
-    // Sin header redirect para quedarse en la misma página
-    // Solo evitar que el formulario se reenvíe (podés hacer redirect a la misma url)
 }
 
 include '../components/header.php';

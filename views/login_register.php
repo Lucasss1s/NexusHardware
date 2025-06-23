@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $error = $_GET['error'] ?? null;
 $success = $_GET['success'] ?? null;
 ?>
