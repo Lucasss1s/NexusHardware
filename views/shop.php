@@ -232,12 +232,17 @@ include '../components/header.php';
                                         <!-- Hover Content -->
                                         <div class="hover-content">
                                             <div class="add-to-cart-btn">
-                                                <form method="post" action="shop.php<?= $currentCategoryName ? '?category=' . urlencode($currentCategoryName) : '' ?>">
-                                                    <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
-                                                    <button type="submit" name="add_to_cart" class="btn essence-btn">Add to Cart</button>
-                                                </form>
+                                                <?php if (!isset($_SESSION['user'])): ?>
+                                                    <a href="/nexushardware/views/login_register.php" class="btn essence-btn">Add to Cart</a>
+                                                <?php else: ?>
+                                                    <form method="post" action="shop.php<?= $currentCategoryName ? '?category=' . urlencode($currentCategoryName) : '' ?>">
+                                                        <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
+                                                        <button type="submit" name="add_to_cart" class="btn essence-btn">Add to Cart</button>
+                                                    </form>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

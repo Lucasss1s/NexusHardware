@@ -1,3 +1,4 @@
+<?php require_once '../controllers/require_admin.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +11,7 @@
 
     <div class="panel-options">
         <a href="products.php" class="option-btn">🛍 Manage Products</a>
-        <!-- <a href="orders.php" class="option-btn">📦 View Orders</a>
-        <a href="users.php" class="option-btn">👤 Manage Users</a> -->
+        <a href="users.php" class="option-btn">👤 Manage Users</a>
 
     </div>
 </body>

@@ -148,6 +148,60 @@ img {
   padding-bottom: 80px; }
 
 /* Section Heading */
+/* Estilos exclusivos del menú */
+.user-login-info {
+  position: relative;
+  display: inline-block;
+}
+
+#user-menu {
+  display: none;
+  position: absolute;
+  top: 120%; /* se ve justo debajo del ícono */
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+#user-menu p {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.user-menu-logout,
+.user-menu-login_register {
+  display: inline-block;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.user-menu-logout {
+  background: #d60000;
+}
+
+.user-menu-logout:hover {
+  background: #a40000;
+}
+
+.user-menu-login_register {
+  background: #0315ff;
+}
+
+.user-menu-login_register:hover {
+  background: #0212cc;
+}
+
+
+
 .section-heading {
   margin-bottom: 50px;
   position: relative;
@@ -1797,3 +1851,5 @@ img {
 /* ##### The End ##### */
 
 /*# sourceMappingURL=core-style.css.map */
+
+

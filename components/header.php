@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-     <!-- Title  -->
+    <!-- Title  -->
     <title>NexusHardware</title>
 
     <link rel="icon" href="/nexushardware/img/core-img/favicon.ico">
@@ -103,8 +104,22 @@
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
-                    <a href="#"><img src="/nexushardware/img/core-img/user.svg" alt=""></a>
+                    <a href="#" onclick="toggleUserMenu(); return false;">
+                        <img src="/nexushardware/img/core-img/user.svg" alt="User">
+                    </a>
+
+                    <div id="user-menu">
+                        <?php if (isset($_SESSION['user'])): ?>
+                            <p><?= htmlspecialchars($_SESSION['user']['name']) ?></p>
+                            <a style="line-height: 30px;" class="user-menu-logout" href="/nexushardware/controllers/logout.php">Logout</a>
+                        <?php else: ?>
+                            <a style="line-height: 30px;" class="user-menu-login_register" href="/nexushardware/views/login_register.php">Sign In</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
+
+
+
                 <!-- Cart Area -->
                 <div class="cart-area">
                     <a href="/NexusHardware/views/CartProduct.php" ><img src="/nexushardware/img/core-img/bag.svg" alt=""> <span></span></a>
@@ -114,3 +129,19 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
+<script>
+    function toggleUserMenu() {
+        const menu = document.getElementById("user-menu");
+        menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
+    }
+
+    document.addEventListener("click", function (e) {
+        const menu = document.getElementById("user-menu");
+        const trigger = document.querySelector(".user-login-info a");
+        if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>
+
+

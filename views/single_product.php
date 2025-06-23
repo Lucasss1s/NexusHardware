@@ -1,7 +1,15 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header("Location: /nexushardware/views/login_register.php?error=Please login to continue");
+    exit;
+}
+
 require_once '../config/connection.php';
 require_once '../models/Review.php';
 require_once '../models/Product.php';
+
 
 $productId = $_GET['id'] ?? null;
 if (!$productId) {

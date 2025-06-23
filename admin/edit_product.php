@@ -1,4 +1,6 @@
 <?php
+require_once '../controllers/require_admin.php';
+
 require_once '../config/connection.php';
 require_once '../models/Product.php';
 require_once '../models/Category.php';
