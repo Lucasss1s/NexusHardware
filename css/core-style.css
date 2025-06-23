@@ -1853,3 +1853,22 @@ img {
 /*# sourceMappingURL=core-style.css.map */
 
 
+/*purchase_history */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+}
+.status-processing {
+    background-color: #ccc;
+    color: #333;
+}
+.status-completed {
+    background-color: #28a745;
+    color: white;
+}
+.status-pending {
+    background-color: #ffc107;
+    color: black;
+}
