@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && iss
         $cart = Cart::getById($_SESSION['cart_id'], $conn);
     }
 
-    $productId = (int)$_POST['product_id'];
+    $productId = (int) $_POST['product_id'];
     CartItem::addToCart($conn, $cart->getId(), $productId, 1);
 }
 
@@ -79,7 +79,7 @@ include '../components/header.php';
                             <ul id="menu-content2" class="menu-content collapse show">
                                 <!-- Single Item -->
                                 <li data-toggle="collapse" data-target="#hardware">
-                                    <a href="#">Hardware</a>
+                                    <a href="#">Products <i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu collapse show" id="hardware">
                                         <li><a href="shop.php">All</a></li>
                                         <?php foreach ($categories as $cat): ?>
@@ -110,7 +110,7 @@ include '../components/header.php';
                         </div>
                     </div>
 
-                    <?php           
+                    <?php
                     $currentCategoryName = $_GET['category'] ?? null;
                     $filteredProducts = [];
 
@@ -143,15 +143,16 @@ include '../components/header.php';
 
 
                     <div class="row">
-                        <?php                  
-                        foreach ($filteredProducts  as $p): ?>
+                        <?php foreach ($filteredProducts as $p): ?>
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="single-product-wrapper">
                                     <!-- Product Image -->
                                     <div class="product-img">
                                         <a href="single_product.php?id=<?= $p['id'] ?>">
-                                            <img src="<?= $p['img'] ?>" alt="">
-                                            <img class="hover-img" src="<?= $p['img_hover'] ?>" alt="">
+                                            <img src="<?= $p['img'] ?>" alt=""
+                                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
+                                            <img class="hover-img" src="<?= $p['img_hover'] ?>" alt=""
+                                            style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                         </a>
                                         <?php if ($p['discount']): ?>
                                             <div class="product-badge offer-badge">
@@ -181,11 +182,14 @@ include '../components/header.php';
                                         <div class="hover-content">
                                             <div class="add-to-cart-btn">
                                                 <?php if (!isset($_SESSION['user'])): ?>
-                                                    <a href="/nexushardware/views/login_register.php" class="btn essence-btn">Add to Cart</a>
+                                                    <a href="/nexushardware/views/login_register.php"
+                                                        class="btn essence-btn">Add to Cart</a>
                                                 <?php else: ?>
-                                                    <form method="post" action="shop.php<?= $currentCategoryName ? '?category=' . urlencode($currentCategoryName) : '' ?>">
+                                                    <form method="post"
+                                                        action="shop.php<?= $currentCategoryName ? '?category=' . urlencode($currentCategoryName) : '' ?>">
                                                         <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
-                                                        <button type="submit" name="add_to_cart" class="btn essence-btn">Add to Cart</button>
+                                                        <button type="submit" name="add_to_cart" class="btn essence-btn">Add to
+                                                            Cart</button>
                                                     </form>
                                                 <?php endif; ?>
                                             </div>
@@ -197,10 +201,11 @@ include '../components/header.php';
                         <?php endforeach; ?>
                     </div>
 
-                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- ##### Shop Grid Area End ##### -->

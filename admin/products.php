@@ -43,6 +43,8 @@ try {
     <?php endif; ?>
 
     <a href="add_product.php" class="add-btn">+ Add Product</a>
+    <a href="../index.php" class="add-btn">View page</a>
+    <a href="index.php" class="back-btn">← Back to panel</a>
     <table>
         <thead>
             <tr>

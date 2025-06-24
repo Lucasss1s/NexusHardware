@@ -53,23 +53,16 @@ include 'components/header.php';
     <!-- ##### Top Catagory Area End ##### -->
 
     <!-- ##### CTA Area Start ##### -->
-    <div class="cta-area">
-        <div class="container">
-            <div class="row">
+    <section class="welcome_area bg-img background-overlay" style="background-image: url(img/bg-img/banner2.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
                 <div class="col-12">
-                    <div class="cta-content bg-img background-overlay" style="background-image: url(img/bg-img/bg5.jpeg);">
-                        <!--<div class="h-100 d-flex align-items-center justify-content-end">
-                            <div class="cta--text">
-                                <h6>-60%</h6>
-                                <h2>Global Sale</h2>
-                                <a href="#" class="btn essence-btn">Buy Now</a>
-                            </div>
-                        </div>-->
+                    <div class="hero-content">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- ##### CTA Area End ##### -->
 
     <!-- ##### Info Section Start ##### -->
@@ -80,24 +73,24 @@ include 'components/header.php';
             <div class="col-md-4">
                 <div class="info-box">
                     <i class="fa fa-credit-card fa-2x mb-3"></i>
-                    <h5>Hasta 18 cuotas</h5>
-                    <p>Abonando con tarjetas de crédito</p>
+                    <h5>Up to 18 installments</h5>
+                    <p>Paying with credit cards</p>
                 </div>
             </div>
             <!-- Shipping Info -->
             <div class="col-md-4">
                 <div class="info-box">
                     <i class="fa fa-truck fa-2x mb-3"></i>
-                    <h5>Envíos a todo el país</h5>
-                    <p>A través de OCA</p>
+                    <h5>Shipping nationwide</h5>
+                    <p>Through OCA</p>
                 </div>
             </div>
             <!-- Warranty Info -->
             <div class="col-md-4">
                 <div class="info-box">
                     <i class="fa fa-shield fa-2x mb-3"></i>
-                    <h5>Garantía oficial</h5>
-                    <p>De hasta 36 meses en todos los productos</p>
+                    <h5>Official guarantee</h5>
+                    <p>Dand up to 36 months on all products</p>
                 </div>
             </div>
         </div>
@@ -127,9 +120,11 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/product-1.jpg" alt="">
+                                <img src="img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-2.jpg" alt="">
+                                <img class="hover-img" src="img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -137,19 +132,11 @@ include 'components/header.php';
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>topshop</span>
-                                <a href="single-product-details.html">
-                                    <h6>Knot Front Mini Dress</h6>
+                                <span>Asus</span>
+                                <a href="/NexusHardware/views/shop.php">
+                                    <h6>Mother ASUS PRIME B550M-A AC WIFI AM4</h6>
                                 </a>
-                                <p class="product-price">$80.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
+                                <p class="product-price">$128.35</p>
                             </div>
                         </div>
 
@@ -157,9 +144,11 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/product-2.jpg" alt="">
+                                <img src="img/product-img/Silla Gamer.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-3.jpg" alt="">
+                                <img class="hover-img" src="img/product-img/Silla Gamer.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -167,19 +156,11 @@ include 'components/header.php';
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>topshop</span>
-                                <a href="single-product-details.html">
-                                    <h6>Poplin Displaced Wrap Dress</h6>
+                                <span>Vertagear</span>
+                                <a href="/NexusHardware/views/shop.php">
+                                    <h6>Silla Gamer Vertagear SL3800 HygennX Negro y Blanco Ergonomic (Peso MAX. 100kg)</h6>
                                 </a>
-                                <p class="product-price">$80.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
+                                <p class="product-price">$419.99</p>
                             </div>
                         </div>
 
@@ -187,15 +168,35 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/product-3.jpg" alt="">
+                                <img src="img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-4.jpg" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product-badge offer-badge">
-                                    <span>-30%</span>
+                                <img class="hover-img" src="img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
+                                <!-- Favourite -->
+                                <div class="product-favourite">
+                                    <a href="#" class="favme fa fa-heart"></a>
                                 </div>
+                            </div>
+                            <!-- Product Description -->
+                            <div class="product-description">
+                                <span>Redragon</span>
+                                <a href="/NexusHardware/views/shop.php">
+                                    <h6>Microfono Redragon Fenris GM301 RGB</h6>
+                                </a>
+                                <p class="product-price">$87.65</p>
+                            </div>
+                        </div>
 
+                        <!-- Single Product -->
+                        <div class="single-product-wrapper">
+                            <!-- Product Image -->
+                            <div class="product-img">
+                                <img src="img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt="" 
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
+                                <!-- Hover Thumb -->
+                                <img class="hover-img" src="img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt=""
+                                style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
@@ -204,54 +205,10 @@ include 'components/header.php';
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>mango</span>
-                                <a href="single-product-details.html">
-                                    <h6>PETITE Crepe Wrap Mini Dress</h6>
+                                <a href="/NexusHardware/views/shop.php">
+                                    <h6>Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs</h6>
                                 </a>
-                                <p class="product-price"><span class="old-price">$75.00</span> $55.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Product -->
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="img/product-img/product-4.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/product-5.jpg" alt="">
-
-                                <!-- Product Badge -->
-                                <div class="product-badge new-badge">
-                                    <span>New</span>
-                                </div>
-
-                                <!-- Favourite -->
-                                <div class="product-favourite">
-                                    <a href="#" class="favme fa fa-heart"></a>
-                                </div>
-                            </div>
-                            <!-- Product Description -->
-                            <div class="product-description">
-                                <span>mango</span>
-                                <a href="single-product-details.html">
-                                    <h6>PETITE Belted Jumper Dress</h6>
-                                </a>
-                                <p class="product-price">$80.00</p>
-
-                                <!-- Hover Content -->
-                                <div class="hover-content">
-                                    <!-- Add to Cart -->
-                                    <div class="add-to-cart-btn">
-                                        <a href="#" class="btn essence-btn">Add to Cart</a>
-                                    </div>
-                                </div>
+                                <p class="product-price">$39.65</p>
                             </div>
                         </div>
                     </div>

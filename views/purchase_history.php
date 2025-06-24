@@ -20,10 +20,10 @@ include '../components/header.php';
 ?>
 
 <div class="container mt-5 mb-5">
-    <h2>Historial de Compras</h2>
+    <h2>Purchase history</h2>
 
     <?php if (empty($orders)): ?>
-        <p>No tenés compras registradas.</p>
+        <p>You have no registered purchases.</p>
     <?php else: ?>
         <?php foreach ($orders as $order): ?>
             <?php

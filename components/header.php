@@ -23,7 +23,8 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="../index.php"><img src="/nexushardware/img/core-img/logoPrincipal.png" alt=""></a>
+                <a class="nav-brand" href="../index.php"><img src="/nexushardware/img/core-img/logoPrincipal.png"
+                        alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
                     <span class="navbarToggler"><span></span><span></span><span></span></span>
@@ -55,7 +56,8 @@
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="/nexushardware/views/purchase_history.php"><img src="/nexushardware/img/core-img/purchase_history.png" alt=""></a>
+                    <a href="/nexushardware/views/purchase_history.php"><img
+                            src="/nexushardware/img/core-img/purchase_history.png" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
@@ -66,34 +68,40 @@
                     <div id="user-menu">
                         <?php if (isset($_SESSION['user'])): ?>
                             <p><?= htmlspecialchars($_SESSION['user']['name']) ?></p>
-                            <a style="line-height: 30px;" class="user-menu-logout" href="/nexushardware/controllers/logout.php">Logout</a>
+                            <?php if ($_SESSION['user']['role'] === 'admin'): // Verificar si el rol es admin ?>
+                                <a style="line-height: 30px;" class="user-menu-abm"
+                                    href="/nexushardware/admin/index.php">Panel ABM</a>
+                            <?php endif; ?>
+                            <a style="line-height: 30px;" class="user-menu-abm"
+                                href="/nexushardware/controllers/logout.php">Logout</a>
                         <?php else: ?>
-                            <a style="line-height: 30px;" class="user-menu-login_register" href="/nexushardware/views/login_register.php">Sign In</a>
+                            <a style="line-height: 30px;" class="user-menu-abm"
+                                href="/nexushardware/views/login_register.php">Sign In</a>
                         <?php endif; ?>
                     </div>
                 </div>
 
+
                 <div class="cart-area">
-                    <a href="/NexusHardware/views/CartProduct.php" ><img src="/nexushardware/img/core-img/bag.svg" alt=""> <span></span></a>
+                    <a href="/NexusHardware/views/CartProduct.php"><img src="/nexushardware/img/core-img/bag.svg"
+                            alt=""> <span></span></a>
                 </div>
             </div>
 
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-<script>
-    function toggleUserMenu() {
-        const menu = document.getElementById("user-menu");
-        menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
-    }
-
-    document.addEventListener("click", function (e) {
-        const menu = document.getElementById("user-menu");
-        const trigger = document.querySelector(".user-login-info a");
-        if (!menu.contains(e.target) && !trigger.contains(e.target)) {
-            menu.style.display = "none";
+    <script>
+        function toggleUserMenu() {
+            const menu = document.getElementById("user-menu");
+            menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
         }
-    });
-</script>
 
-
+        document.addEventListener("click", function (e) {
+            const menu = document.getElementById("user-menu");
+            const trigger = document.querySelector(".user-login-info a");
+            if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+                menu.style.display = "none";
+            }
+        });
+    </script>

@@ -26,6 +26,8 @@ try {
     <?php endif; ?>
 
     <a href="add_user.php" class="add-btn">+ Add User</a>
+    <a href="../index.php" class="add-btn">View page</a>
+    <a href="index.php" class="back-btn">← Back to Panel</a>
 
     <table>
         <thead>
@@ -58,6 +60,5 @@ try {
         </tbody>
     </table>
 
-    <a href="index.php" class="back-btn">← Back to Panel</a>
 </body>
 </html>
