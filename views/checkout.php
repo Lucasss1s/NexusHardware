@@ -30,12 +30,12 @@ foreach ($items as $item) {
 <?php include '../components/header.php'; ?>
 
 <div class="container mt-5 mb-5">
-    <h2>Finalizar Compra</h2>
+    <h2>Complete Purchase</h2>
 
     <div class="row">
         <!-- Formulario de dirección -->
         <div class="col-md-6">
-            <h4>Dirección de envío</h4>
+            <h4>Mailing address</h4>
             <form action="/nexushardware/controllers/confirm_order.php" method="post">
                 <div class="form-group">
                     <label>Calle</label>
@@ -66,13 +66,13 @@ foreach ($items as $item) {
                     <input type="text" name="description" class="form-control">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Confirmar compra</button>
+                <button type="submit" class="btn btn-primary">Confirm purchase</button>
             </form>
         </div>
 
         <!-- Detalle del carrito -->
         <div class="col-md-6">
-            <h4>Resumen de tu compra</h4>
+            <h4>Summary of your purchase</h4>
             <ul class="list-group">
                 <?php foreach ($items as $item): ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -89,7 +89,7 @@ foreach ($items as $item) {
     </div>
 </div>
 
-<?php include '../components/footer.php'; ?>
+<?php include 'components/footer.php'; ?>
 
 
 <!-- jQuery (Necessary for All JavaScript Plugins) -->
