@@ -87,7 +87,6 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
 
-        <!-- Botón de Comprar -->
         <form action="checkout.php" method="post" class="mt-3 text-right">
             <button type="submit" class="btn btn-success">Comprar</button>
         </form>
@@ -96,15 +95,9 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php include '../components/footer.php'; ?>
 
-<!-- jQuery (Necessary for All JavaScript Plugins) -->
 <script src="../js/jquery/jquery-2.2.4.min.js"></script>
-<!-- Popper js -->
 <script src="../js/popper.min.js"></script>
-<!-- Bootstrap js -->
 <script src="../js/bootstrap.min.js"></script>
-<!-- Plugins js -->
 <script src="../js/plugins.js"></script>
-<!-- Classy Nav js -->
 <script src="../js/classy-nav.min.js"></script>
-<!-- Active js -->
 <script src="../js/active.js"></script>

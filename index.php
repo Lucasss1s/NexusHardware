@@ -23,7 +23,6 @@ include 'components/header.php';
     <div class="top_catagory_area section-padding-80 clearfix">
         <div class="container">
             <div class="row justify-content-center">
-                <!-- Single Catagory -->
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg2.png);">
                         <div class="catagory-content">
@@ -31,7 +30,6 @@ include 'components/header.php';
                         </div>
                     </div>
                 </div>
-                <!-- Single Catagory -->
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg3.png);">
                         <div class="catagory-content">
@@ -39,7 +37,6 @@ include 'components/header.php';
                         </div>
                     </div>
                 </div>
-                <!-- Single Catagory -->
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg4.png);">
                         <div class="catagory-content">
@@ -69,7 +66,6 @@ include 'components/header.php';
 <section class="info-section py-5">
     <div class="container">
         <div class="row text-center">
-            <!-- Payment Info -->
             <div class="col-md-4">
                 <div class="info-box">
                     <i class="fa fa-credit-card fa-2x mb-3"></i>
@@ -77,7 +73,6 @@ include 'components/header.php';
                     <p>Paying with credit cards</p>
                 </div>
             </div>
-            <!-- Shipping Info -->
             <div class="col-md-4">
                 <div class="info-box">
                     <i class="fa fa-truck fa-2x mb-3"></i>
@@ -85,7 +80,6 @@ include 'components/header.php';
                     <p>Through OCA</p>
                 </div>
             </div>
-            <!-- Warranty Info -->
             <div class="col-md-4">
                 <div class="info-box">
                     <i class="fa fa-shield fa-2x mb-3"></i>
@@ -220,27 +214,21 @@ include 'components/header.php';
 
     <!-- ##### Brands Area Start ##### -->
     <div class="brands-area d-flex align-items-center justify-content-between">
-        <!-- Brand Logo -->
         <div class="single-brands-logo">
             <img src="img/core-img/intelLogo.png" alt="">
         </div>
-        <!-- Brand Logo -->
         <div class="single-brands-logo">
             <img src="img/core-img/logoMsi.png" alt="">
         </div>
-        <!-- Brand Logo -->
         <div class="single-brands-logo">
             <img src="img/core-img/asusLogo.png" alt="">
         </div>
-        <!-- Brand Logo -->
         <div class="single-brands-logo">
             <img src="img/core-img/AMDlogo.png" alt="">
         </div>
-        <!-- Brand Logo -->
         <div class="single-brands-logo">
             <img src="img/core-img/nvidiaLogo.png" alt="">
         </div>
-        <!-- Brand Logo -->
         <div class="single-brands-logo">
             <img src="img/core-img/logitechLogo.png" alt="">
         </div>
@@ -249,17 +237,11 @@ include 'components/header.php';
 
 <?php include 'components/footer.php'; ?>
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
     <script src="js/popper.min.js"></script>
-    <!-- Bootstrap js -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
     <script src="js/plugins.js"></script>
-    <!-- Classy Nav js -->
     <script src="js/classy-nav.min.js"></script>
-    <!-- Active js -->
     <script src="js/active.js"></script>
 
 </body>

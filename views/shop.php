@@ -11,8 +11,6 @@ require_once '../models/Category.php';
 require_once '../models/Cart.php';
 require_once '../models/CartItem.php';
 
-// Mover el include HEADER abajo, después de procesar POST
-
 // Manejar el agregar al carrito
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && isset($_POST['product_id'])) {
     if (!isset($_SESSION['cart_id'])) {
@@ -214,17 +212,11 @@ include '../components/header.php';
 
 <?php include '../components/footer.php'; ?>
 
-<!-- jQuery (Necessary for All JavaScript Plugins) -->
 <script src="../js/jquery/jquery-2.2.4.min.js"></script>
-<!-- Popper js -->
 <script src="../js/popper.min.js"></script>
-<!-- Bootstrap js -->
 <script src="../js/bootstrap.min.js"></script>
-<!-- Plugins js -->
 <script src="../js/plugins.js"></script>
-<!-- Classy Nav js -->
 <script src="../js/classy-nav.min.js"></script>
-<!-- Active js -->
 <script src="../js/active.js"></script>
 
 </body>
