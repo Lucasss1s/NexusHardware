@@ -83,7 +83,7 @@
 
 
                 <div class="cart-area">
-                    <a href="/NexusHardware/views/CartProduct.php"><img src="/nexushardware/img/core-img/bag.svg"
+                    <a href="/NexusHardware/views/cart_product.php"><img src="/nexushardware/img/core-img/bag.svg"
                             alt=""> <span></span></a>
                 </div>
             </div>

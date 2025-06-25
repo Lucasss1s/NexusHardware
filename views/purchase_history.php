@@ -44,7 +44,7 @@ include '../components/header.php';
                 </div>
                 <div class="card-body">
                     <p><strong>Total:</strong> $<?= number_format($order->getTotal(), 2) ?></p>
-                    <h6>Productos:</h6>
+                    <h6>Products:</h6>
                     <ul class="list-group">
                         <?php
                         $details = OrderDetail::getByOrderId($conn, $order->getId());
@@ -56,7 +56,7 @@ include '../components/header.php';
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <strong><?= htmlspecialchars($product['name'] ?? 'Producto eliminado') ?></strong><br>
-                                    Cantidad: <?= $detail->getQuantity() ?> - Precio unitario: $<?= number_format($detail->getUnitPrice(), 2) ?>
+                                    Amount: <?= $detail->getQuantity() ?> - Unit price: $<?= number_format($detail->getUnitPrice(), 2) ?>
                                 </div>
                                 <?php if (!empty($product['img'])): ?>
                                     <img src="<?= htmlspecialchars($product['img']) ?>" alt="img" style="width: 60px;">
