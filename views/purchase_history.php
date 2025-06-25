@@ -41,7 +41,7 @@ include '../components/header.php';
                     <div>
                         <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($status) ?></span>
                         <?php if ($status !== 'Completed'): ?>
-                            <a href="pay.php?order_id=<?= $order->getId() ?>" class="btn btn-warning btn-sm ms-2 btn-no-hover">Pagar</a>
+                            <a href="pay.php?order_id=<?= $order->getId() ?>" class="btn btn-warning btn-sm ms-2 btn-no-hover">Pay</a>
                         <?php endif; ?>
                     </div>
                 </div>
