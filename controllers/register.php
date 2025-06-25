@@ -1,5 +1,7 @@
 <?php
-require_once '../config/connection.php';
+require_once '../config/Database.php';
+$conn = Database::getInstance();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullName = trim($_POST['full_name']);

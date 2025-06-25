@@ -8,7 +8,9 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-require_once '../config/connection.php';
+require_once '../config/Database.php';
+$conn = Database::getInstance();
+
 require_once '../models/Review.php';
 require_once '../models/Product.php';
 

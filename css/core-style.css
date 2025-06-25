@@ -1872,3 +1872,7 @@ img {
     background-color: #ffc107;
     color: black;
 }
+.form-select {
+    background-image: none !important;
+}
+

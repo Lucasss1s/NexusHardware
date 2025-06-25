@@ -3,7 +3,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once '../config/connection.php';
+require_once '../config/Database.php';
+$conn = Database::getInstance();
+
 require_once '../models/Product.php';
 require_once '../models/Category.php';
 require_once '../models/Cart.php';
