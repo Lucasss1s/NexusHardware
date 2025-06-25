@@ -7,10 +7,10 @@ include '../components/header.php';
 ?>
 
 <div class="container mt-5 mb-5 text-center">
-    <h2 class="mb-4">¡Gracias por tu compra!</h2>
-    <p class="lead">Tu pedido fue procesado exitosamente. Recibirás una confirmación por correo electrónico.</p>
+    <h2 class="mb-4">¡Thank you for your purchase!</h2>
+    <p class="lead">Your order has been successfully processed. You will receive an email confirmation.</p>
 
-    <a href="shop.php" class="btn essence-btn mt-4">Volver a la tienda</a>
+    <a href="shop.php" class="btn essence-btn mt-4">Return to the store</a>
 </div>
 
 <?php include '../components/footer.php'; ?>

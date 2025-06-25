@@ -204,7 +204,7 @@ include 'components/header.php';
                             </div>
                             <!-- Product Description -->
                             <div class="product-description">
-                                <span>mango</span>
+                                <span>Logitech</span>
                                 <a href="/NexusHardware/views/shop.php">
                                     <h6>Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs</h6>
                                 </a>
@@ -230,7 +230,7 @@ include 'components/header.php';
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
-            <img src="img/core-img/asusLogo.jpg" alt="">
+            <img src="img/core-img/asusLogo.png" alt="">
         </div>
         <!-- Brand Logo -->
         <div class="single-brands-logo">
