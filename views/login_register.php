@@ -26,37 +26,41 @@ $success = $_GET['success'] ?? null;
     <!-- REGISTRATION FORM -->
     <div class="form-container registrarse">
         <form action="/nexushardware/controllers/register.php" method="POST">
-            <h1>Crear Cuenta</h1>
+            <h1>Create Account</h1>
             <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#" class="icon" onclick="googleLogin(); return false;">
+                    <i class="fa-brands fa-google-plus-g"></i>
+                </a>
                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>o ingresa con tu email para el registro</span>
-            <input type="text" name="full_name" placeholder="Nombre completo" required>
+            <span>or sign up with your email</span>
+            <input type="text" name="full_name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <input type="text" name="phone" placeholder="Teléfono (opcional)">
-            <button type="submit">Registrarse</button>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="phone" placeholder="Phone (optional)">
+            <button type="submit">Sign Up</button>
         </form>
     </div>
 
     <!-- LOGIN FORM -->
     <div class="form-container ingresar">
         <form action="/nexushardware/controllers/login.php" method="POST">
-            <h1>Iniciar sesión</h1>
+            <h1>Sign In</h1>
             <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#" class="icon" onclick="googleLogin(); return false;">
+                    <i class="fa-brands fa-google-plus-g"></i>
+                </a>
                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                 <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
             </div>
-            <span>o ingresa con tu contraseña de cuenta</span>
+            <span>or use your account credentials</span>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <button type="submit">Ingresar</button>
+            <input type="password" name="password" placeholder="Password" required>
+            <a href="#">Forgot your password?</a>
+            <button type="submit">Sign In</button>
         </form>
     </div>
 
@@ -64,20 +68,21 @@ $success = $_GET['success'] ?? null;
     <div class="toggle-container">
         <div class="toggle">
             <div class="toggle-panel toggle-left">
-                <h1>Bienvenido!</h1>
-                <p>Ingresa tus datos personales para usar nuestros servicios</p>
-                <button class="hidden" id="login">Ingresar</button>
+                <h1>Welcome!</h1>
+                <p>Enter your personal information to use our services</p>
+                <button class="hidden" id="login">Sign In</button>
             </div>
             <div class="toggle-panel toggle-right">
-                <h1>Hola, amigo!</h1>
-                <p>Registra tus datos personales para usar nuestros servicios</p>
-                <button class="hidden" id="register">Registrarse</button>
+                <h1>Hello, friend!</h1>
+                <p>Register your personal information to use our services</p>
+                <button class="hidden" id="register">Sign Up</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- TOGGLE SCRIPT -->
+</body>
+
 <script>
     const container = document.getElementById('container');
     const registerBtn = document.getElementById('register');
@@ -91,5 +96,20 @@ $success = $_GET['success'] ?? null;
     });
 </script>
 
-</body>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+function googleLogin() {
+    google.accounts.id.initialize({
+        client_id: "TU_CLIENT_ID.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    });
+
+    google.accounts.id.prompt(); 
+}
+
+function handleCredentialResponse(response) {
+    console.log("Token de Google (JWT):", response.credential);
+}
+</script>
 </html>
