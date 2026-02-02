@@ -113,10 +113,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="<?= BASE_URL ?>img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
+                                <img src="<?= BASE_URL ?>img/product-img/motherboard-asus-b550m-a-wifi-am4.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/motherboard-asus-b550m-a-wifi-am4.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -137,10 +137,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="<?= BASE_URL ?>img/product-img/Silla Gamer.jpg" alt=""
+                                <img src="<?= BASE_URL ?>img/product-img/silla-gamer.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Silla Gamer.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/silla-gamer.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -161,10 +161,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="<?= BASE_URL ?>img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
+                                <img src="<?= BASE_URL ?>img/product-img/microfono-redragon-fenris-gm301-rgb.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/microfono-redragon-fenris-gm301-rgb.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -185,10 +185,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="<?= BASE_URL ?>img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt="" 
+                                <img src="<?= BASE_URL ?>img/product-img/mouse-logitech-g305-wireless.jpg" alt="" 
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/mouse-logitech-g305-wireless.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
