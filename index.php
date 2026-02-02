@@ -3,15 +3,14 @@ session_start();
 include 'components/header.php'; 
 ?>
 
-   
     <!-- ##### Welcome Area Start ##### -->
-    <section class="welcome_area bg-img background-overlay" style="background-image: url(img/bg-img/bg1.jpg);">
+    <section class="welcome_area bg-img background-overlay" style="background-image: url(<?= BASE_URL ?>img/bg-img/bg1.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="hero-content">
                         <h2>Featured Products</h2>
-                        <a href="/NexusHardware/views/shop.php" class="btn essence-btn">view Products</a>
+                        <a href="<?= BASE_URL ?>views/shop.php" class="btn essence-btn">view Products</a>
                     </div>
                 </div>
             </div>
@@ -24,23 +23,23 @@ include 'components/header.php';
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg2.png);">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(<?= BASE_URL ?>img/bg-img/bg2.png);">
                         <div class="catagory-content">
-                            <a href="/NexusHardware/views/shop.php">Processors</a>
+                            <a href="<?= BASE_URL ?>views/shop.php">Processors</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg3.png);">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(<?= BASE_URL ?>img/bg-img/bg3.png);">
                         <div class="catagory-content">
-                            <a href="/NexusHardware/views/shop.php">Graphics</a>
+                            <a href="<?= BASE_URL ?>views/shop.php">Graphics</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4">
-                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(img/bg-img/bg4.png);">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url(<?= BASE_URL ?>img/bg-img/bg4.png);">
                         <div class="catagory-content">
-                            <a href="/NexusHardware/views/shop.php">Motherboard</a>
+                            <a href="<?= BASE_URL ?>views/shop.php">Motherboard</a>
                         </div>
                     </div>
                 </div>
@@ -50,7 +49,7 @@ include 'components/header.php';
     <!-- ##### Top Catagory Area End ##### -->
 
     <!-- ##### CTA Area Start ##### -->
-    <section class="welcome_area bg-img background-overlay" style="background-image: url(img/bg-img/banner2.jpg);">
+    <section class="welcome_area bg-img background-overlay" style="background-image: url(<?= BASE_URL ?>img/bg-img/banner2.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -114,10 +113,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
+                                <img src="<?= BASE_URL ?>img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Mother ASUS PRIME B550M-A AC WIFI AM4.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -127,7 +126,7 @@ include 'components/header.php';
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>Asus</span>
-                                <a href="/NexusHardware/views/shop.php">
+                                <a href="<?= BASE_URL ?>views/shop.php">
                                     <h6>Mother ASUS PRIME B550M-A AC WIFI AM4</h6>
                                 </a>
                                 <p class="product-price">$128.35</p>
@@ -138,10 +137,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/Silla Gamer.jpg" alt=""
+                                <img src="<?= BASE_URL ?>img/product-img/Silla Gamer.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/Silla Gamer.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Silla Gamer.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -151,7 +150,7 @@ include 'components/header.php';
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>Vertagear</span>
-                                <a href="/NexusHardware/views/shop.php">
+                                <a href="<?= BASE_URL ?>views/shop.php">
                                     <h6>Silla Gamer Vertagear SL3800 HygennX Negro y Blanco Ergonomic (Peso MAX. 100kg)</h6>
                                 </a>
                                 <p class="product-price">$419.99</p>
@@ -162,10 +161,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
+                                <img src="<?= BASE_URL ?>img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Microfono Redragon Fenris GM301 RGB.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -175,7 +174,7 @@ include 'components/header.php';
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>Redragon</span>
-                                <a href="/NexusHardware/views/shop.php">
+                                <a href="<?= BASE_URL ?>views/shop.php">
                                     <h6>Microfono Redragon Fenris GM301 RGB</h6>
                                 </a>
                                 <p class="product-price">$87.65</p>
@@ -186,10 +185,10 @@ include 'components/header.php';
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt="" 
+                                <img src="<?= BASE_URL ?>img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt="" 
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt=""
+                                <img class="hover-img" src="<?= BASE_URL ?>img/product-img/Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                 <!-- Favourite -->
                                 <div class="product-favourite">
@@ -199,7 +198,7 @@ include 'components/header.php';
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>Logitech</span>
-                                <a href="/NexusHardware/views/shop.php">
+                                <a href="<?= BASE_URL ?>views/shop.php">
                                     <h6>Mouse Logitech G305 Wireless 2.4Ghz Lightspeed Hero Black 99g 250Hs</h6>
                                 </a>
                                 <p class="product-price">$39.65</p>
@@ -215,34 +214,40 @@ include 'components/header.php';
     <!-- ##### Brands Area Start ##### -->
     <div class="brands-area d-flex align-items-center justify-content-between">
         <div class="single-brands-logo">
-            <img src="img/core-img/intelLogo.png" alt="">
+            <img src="<?= BASE_URL ?>img/core-img/intelLogo.png" alt="">
         </div>
         <div class="single-brands-logo">
-            <img src="img/core-img/logoMsi.png" alt="">
+            <img src="<?= BASE_URL ?>img/core-img/logoMsi.png" alt="">
         </div>
         <div class="single-brands-logo">
-            <img src="img/core-img/asusLogo.png" alt="">
+            <img src="<?= BASE_URL ?>img/core-img/asusLogo.png" alt="">
         </div>
         <div class="single-brands-logo">
-            <img src="img/core-img/AMDlogo.png" alt="">
+            <img src="<?= BASE_URL ?>img/core-img/AMDlogo.png" alt="">
         </div>
         <div class="single-brands-logo">
-            <img src="img/core-img/nvidiaLogo.png" alt="">
+            <img src="<?= BASE_URL ?>img/core-img/nvidiaLogo.png" alt="">
         </div>
         <div class="single-brands-logo">
-            <img src="img/core-img/logitechLogo.png" alt="">
+            <img src="<?= BASE_URL ?>img/core-img/logitechLogo.png" alt="">
         </div>
     </div>
     <!-- ##### Brands Area End ##### -->
 
 <?php include 'components/footer.php'; ?>
 
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/classy-nav.min.js"></script>
-    <script src="js/active.js"></script>
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="<?= BASE_URL ?>js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <script src="<?= BASE_URL ?>js/plugins.js"></script>
+    <!-- Classy Nav js -->
+    <script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
+    <!-- Active js -->
+    <script src="<?= BASE_URL ?>js/active.js"></script>
 
 </body>
 

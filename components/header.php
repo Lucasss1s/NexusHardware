@@ -1,3 +1,11 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../config/config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,9 +18,9 @@
     <!-- Title  -->
     <title>NexusHardware</title>
 
-    <link rel="icon" href="/nexushardware/img/core-img/logoPrincipal.png">
-    <link rel="stylesheet" href="/nexushardware/css/core-style.css">
-    <link rel="stylesheet" href="/nexushardware/style.css">
+    <link rel="icon" href="<?= BASE_URL ?>img/core-img/logoPrincipal.png">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/core-style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>style.css">
 
 </head>
 
@@ -23,7 +31,7 @@
             <!-- Classy Menu -->
             <nav class="classy-navbar" id="essenceNav">
                 <!-- Logo -->
-                <a class="nav-brand" href="../index.php"><img src="/nexushardware/img/core-img/logoPrincipal.png"
+                <a class="nav-brand" href="<?= BASE_URL ?>index.php"><img src="<?= BASE_URL ?>img/core-img/logoPrincipal.png"
                         alt=""></a>
                 <!-- Navbar Toggler -->
                 <div class="classy-navbar-toggler">
@@ -37,8 +45,8 @@
                     </div>
                     <div class="classynav">
                         <ul>
-                            <li><a href="/NexusHardware/index.php">Home</a></li>
-                            <li><a href="/NexusHardware/views/shop.php">Shop</a></li>
+                            <li><a href="<?= BASE_URL ?>index.php">Home</a></li>
+                            <li><a href="<?= BASE_URL ?>views/shop.php">Shop</a></li>
                             <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
@@ -56,13 +64,13 @@
                 </div>
                 <!-- Favourite Area -->
                 <div class="favourite-area">
-                    <a href="/nexushardware/views/purchase_history.php"><img
-                            src="/nexushardware/img/core-img/purchase_history.png" alt=""></a>
+                    <a href="<?= BASE_URL ?>views/purchase_history.php"><img
+                            src="<?= BASE_URL ?>img/core-img/purchase_history.png" alt=""></a>
                 </div>
                 <!-- User Login Info -->
                 <div class="user-login-info">
                     <a href="#" onclick="toggleUserMenu(); return false;">
-                        <img src="/nexushardware/img/core-img/user.svg" alt="User">
+                        <img src="<?= BASE_URL ?>img/core-img/user.svg" alt="User">
                     </a>
 
                     <div id="user-menu">
@@ -70,20 +78,20 @@
                             <p><?= htmlspecialchars($_SESSION['user']['name']) ?></p>
                             <?php if ($_SESSION['user']['role'] === 'admin'): // Verificar si el rol es admin ?>
                                 <a style="line-height: 30px;" class="user-menu-abm"
-                                    href="/nexushardware/admin/index.php">Panel ABM</a>
+                                    href="<?= BASE_URL ?>admin/index.php">Panel ABM</a>
                             <?php endif; ?>
                             <a style="line-height: 30px;" class="user-menu-abm"
-                                href="/nexushardware/controllers/logout.php">Logout</a>
+                                href="<?= BASE_URL ?>controllers/logout.php">Logout</a>
                         <?php else: ?>
                             <a style="line-height: 30px;" class="user-menu-abm"
-                                href="/nexushardware/views/login_register.php">Sign In</a>
+                                href="<?= BASE_URL ?>views/login_register.php">Sign In</a>
                         <?php endif; ?>
                     </div>
                 </div>
 
 
                 <div class="cart-area">
-                    <a href="/NexusHardware/views/cart_product.php"><img src="/nexushardware/img/core-img/bag.svg"
+                    <a href="<?= BASE_URL ?>views/cart_product.php"><img src="<?= BASE_URL ?>img/core-img/bag.svg"
                             alt=""> <span></span></a>
                 </div>
             </div>
