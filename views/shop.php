@@ -4,6 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../config/Database.php';
+require_once '../config/config.php';
 $conn = Database::getInstance();
 
 require_once '../models/Product.php';
@@ -11,7 +12,7 @@ require_once '../models/Category.php';
 require_once '../models/Cart.php';
 require_once '../models/CartItem.php';
 
-// Manejar el agregar al carrito
+// Manage adding to cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && isset($_POST['product_id'])) {
     if (!isset($_SESSION['cart_id'])) {
         $userId = $_SESSION['user']['id'] ?? null;
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && iss
                 $_SESSION['cart_id'] = $cart->getId();
             }
         } else {
-            // Usuario no logueado: carrito sin user_id (opcional)
+            // User not logged in: cart without user_id
             $cart = Cart::create($conn, null);
             $_SESSION['cart_id'] = $cart->getId();
         }
@@ -46,7 +47,7 @@ include '../components/header.php';
 
 
 <!-- ##### Breadcumb Area Start ##### -->
-<div class="breadcumb_area bg-img" style="background-image: url(../img/bg-img/breadcumb.jpg);">
+<div class="breadcumb_area bg-img" style="background-image: url(<?= BASE_URL ?>img/bg-img/breadcumb.jpg);">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
@@ -81,7 +82,7 @@ include '../components/header.php';
                                 <li data-toggle="collapse" data-target="#hardware">
                                     <a href="#">Products <i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu collapse show" id="hardware">
-                                        <li><a href="shop.php">All</a></li>
+                                        <li><a href="<?= BASE_URL ?>views/shop.php">All</a></li>
                                         <?php foreach ($categories as $cat): ?>
                                             <li>
                                                 <a href="?category=<?= htmlspecialchars($cat->getName()) ?>">
@@ -116,21 +117,21 @@ include '../components/header.php';
 
                     try {
                         if ($currentCategoryName) {
-                            // Buscar la categoría por nombre
+                            // Search category by name
                             $category = Category::getByName($currentCategoryName, $conn);
 
                             if ($category) {
                                 $categoryId = $category->getId();
 
-                                // Obtener productos de esa categoría
+                                // Get products from searched category 
                                 $stmt = $conn->prepare("SELECT * FROM product WHERE category_id = :cat_id");
                                 $stmt->execute([':cat_id' => $categoryId]);
                             } else {
-                                // Categoría no encontrada
-                                $stmt = $conn->query("SELECT * FROM product WHERE 0"); // devuelve vacío
+                                // Category not found
+                                $stmt = $conn->query("SELECT * FROM product WHERE 0");
                             }
                         } else {
-                            // Sin filtro, obtener todos los productos
+                            // Get all products
                             $stmt = $conn->query("SELECT * FROM product");
                         }
 
@@ -148,10 +149,10 @@ include '../components/header.php';
                                 <div class="single-product-wrapper">
                                     <!-- Product Image -->
                                     <div class="product-img">
-                                        <a href="single_product.php?id=<?= $p['id'] ?>">
-                                            <img src="<?= $p['img'] ?>" alt=""
+                                        <a href="<?= BASE_URL ?>views/single_product.php?id=<?= $p['id'] ?>">
+                                            <img src="<?= BASE_URL . $p['img'] ?>" alt=""
                                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                            <img class="hover-img" src="<?= $p['img_hover'] ?>" alt=""
+                                            <img class="hover-img" src="<?= BASE_URL . $p['img_hover'] ?>" alt=""
                                             style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
                                         </a>
                                         <?php if ($p['discount']): ?>
@@ -168,7 +169,7 @@ include '../components/header.php';
                                     <!-- Product Description -->
                                     <div class="product-description">
                                         <span><?= $p['brand'] ?></span>
-                                        <a href="single_product.php?id=<?= $p['id'] ?>">
+                                        <a href="<?= BASE_URL ?>views/single_product.php?id=<?= $p['id'] ?>">
                                             <h6><?= $p['name'] ?></h6>
                                         </a>
                                         <p class="product-price">
@@ -182,11 +183,11 @@ include '../components/header.php';
                                         <div class="hover-content">
                                             <div class="add-to-cart-btn">
                                                 <?php if (!isset($_SESSION['user'])): ?>
-                                                    <a href="/nexushardware/views/login_register.php"
+                                                    <a href="<?= BASE_URL ?>views/login_register.php"
                                                         class="btn essence-btn">Add to Cart</a>
                                                 <?php else: ?>
                                                     <form method="post"
-                                                        action="shop.php<?= $currentCategoryName ? '?category=' . urlencode($currentCategoryName) : '' ?>">
+                                                        action="<?= BASE_URL ?>views/shop.php<?= $currentCategoryName ? '?category=' . urlencode($currentCategoryName) : '' ?>">
                                                         <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
                                                         <button type="submit" name="add_to_cart" class="btn essence-btn">Add to
                                                             Cart</button>
@@ -212,12 +213,12 @@ include '../components/header.php';
 
 <?php include '../components/footer.php'; ?>
 
-<script src="../js/jquery/jquery-2.2.4.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/plugins.js"></script>
-<script src="../js/classy-nav.min.js"></script>
-<script src="../js/active.js"></script>
+<script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
+<script src="<?= BASE_URL ?>js/popper.min.js"></script>
+<script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
+<script src="<?= BASE_URL ?>js/plugins.js"></script>
+<script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
+<script src="<?= BASE_URL ?>js/active.js"></script>
 
 </body>
 

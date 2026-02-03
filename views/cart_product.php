@@ -4,20 +4,22 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../config/Database.php';
+require_once '../config/config.php';
+
 $conn = Database::getInstance();
 
 require_once '../models/Product.php';
 require_once '../models/Cart.php';
 require_once '../models/CartItem.php';
 
-// Manejo de eliminación de item - debe ir antes de enviar cualquier salida
+// handle item deletion 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_item_id'])) {
     $removeId = (int)$_POST['remove_item_id'];
+
     $stmtDel = $conn->prepare("DELETE FROM cart_item WHERE id = :id");
     $stmtDel->execute([':id' => $removeId]);
 
-    // Refrescar la página para evitar repost y actualizar vista
-    header("Location: " . $_SERVER['PHP_SELF']);
+    header("Location: " . BASE_URL . "views/cart_product.php");
     exit;
 }
 
@@ -31,9 +33,15 @@ if (!isset($_SESSION['cart_id'])) {
 
 $cartId = $_SESSION['cart_id'];
 
-// Obtener todos los ítems del carrito con info del producto
+// Get all items in the cart with product in
 $stmt = $conn->prepare("
-    SELECT ci.id as cart_item_id, ci.quantity, p.id as product_id, p.name, p.price, p.img
+    SELECT 
+        ci.id AS cart_item_id,
+        ci.quantity,
+        p.id AS product_id,
+        p.name,
+        p.price,
+        p.img
     FROM cart_item ci
     JOIN product p ON ci.product_id = p.id
     WHERE ci.cart_id = :cart_id
@@ -68,7 +76,11 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <tr>
                     <td><?= htmlspecialchars($item['name']) ?></td>
-                    <td><img src="<?= htmlspecialchars($item['img']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="width: 60px;"></td>
+                    <td>
+                        <?php if (!empty($item['img'])): ?>
+                            <img src="<?=  BASE_URL . htmlspecialchars($item['img']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" style="width: 60px;">
+                        <?php endif; ?>
+                    </td>
                     <td>$<?= number_format($item['price'], 2) ?></td>
                     <td><?= $item['quantity'] ?></td>
                     <td>$<?= number_format($subtotal, 2) ?></td>
@@ -80,24 +92,25 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </td>
                 </tr>
                 <?php endforeach; ?>
+
                 <tr>
-                    <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                    <td colspan="4" class="text-end"><strong>Total:</strong></td>
                     <td colspan="2"><strong>$<?= number_format($total, 2) ?></strong></td>
                 </tr>
             </tbody>
         </table>
 
-        <form action="checkout.php" method="post" class="mt-3 text-right">
-            <button type="submit" class="btn btn-success">Comprar</button>
+        <form action="<?= BASE_URL ?>views/checkout.php" method="post" class="mt-3 text-end">
+            <button type="submit" class="btn btn-success">Checkout</button>
         </form>
     <?php endif; ?>
 </div>
 
 <?php include '../components/footer.php'; ?>
 
-<script src="../js/jquery/jquery-2.2.4.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/plugins.js"></script>
-<script src="../js/classy-nav.min.js"></script>
-<script src="../js/active.js"></script>
+<script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
+<script src="<?= BASE_URL ?>js/popper.min.js"></script>
+<script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
+<script src="<?= BASE_URL ?>js/plugins.js"></script>
+<script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
+<script src="<?= BASE_URL ?>js/active.js"></script>

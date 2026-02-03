@@ -4,11 +4,12 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user'])) {
-    header("Location: /nexushardware/views/login_register.php?error=Please login to continue");
+    header("Location: " . BASE_URL . "views/login_register.php?error=Please login to continue");
     exit;
 }
 
 require_once '../config/Database.php';
+require_once '../config/config.php';
 $conn = Database::getInstance();
 
 require_once '../models/Review.php';
@@ -16,7 +17,7 @@ require_once '../models/Product.php';
 require_once '../models/Cart.php';
 require_once '../models/CartItem.php';
 
-// Procesar el agregar al carrito
+// Add to cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addtocart']) && isset($_POST['product_id'])) {
     if (!isset($_SESSION['cart_id'])) {
         $userId = $_SESSION['user']['id'] ?? null;
@@ -34,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addtocart']) && isset
                 $_SESSION['cart_id'] = $cart->getId();
             }
         } else {
-            // Usuario no logueado: carrito sin user_id (opcional)
             $cart = Cart::create($conn, null);
             $_SESSION['cart_id'] = $cart->getId();
         }
@@ -45,11 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addtocart']) && isset
     $productId = (int) $_POST['product_id'];
     CartItem::addToCart($conn, $cart->getId(), $productId, 1);
 
-    // Evitar redirección
     $successMessage = "Product added to cart successfully!";
 }
 
-// Obtener datos del producto
+// Get data product
 $productId = $_GET['id'] ?? null;
 if (!$productId) {
     die("Product ID is missing.");
@@ -71,15 +70,15 @@ include '../components/header.php';
     <!-- Single Product Thumb -->
     <div class="single_product_thumb clearfix">
         <div class="product-image-container">
-            <img src="<?= $product->getImage() ?>" alt="<?= htmlspecialchars($product->getName()) ?>"
+            <img src="<?= BASE_URL . $product->getImage() ?>" alt="<?= htmlspecialchars($product->getName()) ?>"
                 style="width: 400px; height: 400px; object-fit: contain; display: block; margin: 0 auto;">
         </div>
     </div>
 
     <!-- Single Product Description -->
     <div class="single_product_desc clearfix">
-        <span><?= $product->getBrand() ?></span>
-        <h2><?= $product->getName() ?></h2>
+        <span><?= htmlspecialchars($product->getBrand()) ?></span>
+        <h2><?= htmlspecialchars($product->getName()) ?></h2>
         <h3>$<?= number_format($product->getPrice(), 2) ?></h3>
 
         <?php if ($product->getOldPrice()): ?>
@@ -89,20 +88,20 @@ include '../components/header.php';
         <?php if ($product->getDiscount()): ?>
             <p class="text-success">Discount: <?= htmlspecialchars($product->getDiscount()) ?></p>
         <?php endif; ?>
+
         <p class="product-desc">
             Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna
-            vehicula,
-            nec maximus est sollicitudin.
+            vehicula, nec maximus est sollicitudin.
         </p>
 
         <!-- Form -->
-        <form class="cart-form clearfix" method="post" action="single_product.php?id=<?= $productId ?>">
+        <form class="cart-form clearfix" method="post" action="<?= BASE_URL ?>views/single_product.php?id=<?= $productId ?>">
             <input type="hidden" name="product_id" value="<?= $productId ?>">
             <!-- Cart & Favourite Box -->
             <div class="cart-fav-box d-flex align-items-center">
-                <!-- Cart -->
-                <button type="submit" name="addtocart" class="btn essence-btn">Add to cart</button>
-                <!-- Favourite -->
+                <button type="submit" name="addtocart" class="btn essence-btn">
+                    Add to cart
+                </button>                
                 <div class="product-favourite ml-4">
                     <a href="#" class="favme fa fa-heart"></a>
                 </div>
@@ -110,12 +109,13 @@ include '../components/header.php';
         </form>
 
         <?php if (isset($successMessage)): ?>
-            <p class="text-success mt-3"><?= $successMessage ?></p>
+            <p class="text-success mt-3"><?= htmlspecialchars($successMessage) ?></p>
         <?php endif; ?>
 
         <!-- Reviews -->
         <div class="product-reviews mt-5" style="max-height: 280px; overflow-y: auto; scrollbar-width: thin;">
             <h4 class="mb-3">Customer Reviews</h4>
+
             <?php if (count($reviews) === 0): ?>
                 <p class="text-muted">This product has no reviews yet.</p>
             <?php else: ?>
@@ -135,12 +135,12 @@ include '../components/header.php';
 
 <?php include '../components/footer.php'; ?>
 
-<script src="../js/jquery/jquery-2.2.4.min.js"></script>
-<script src="../js/popper.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/plugins.js"></script>
-<script src="../js/classy-nav.min.js"></script>
-<script src="../js/active.js"></script>
+<script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
+<script src="<?= BASE_URL ?>js/popper.min.js"></script>
+<script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
+<script src="<?= BASE_URL ?>js/plugins.js"></script>
+<script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
+<script src="<?= BASE_URL ?>js/active.js"></script>
 
 </body>
 

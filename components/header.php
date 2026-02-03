@@ -15,7 +15,6 @@ require_once __DIR__ . '/../config/config.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Title  -->
     <title>NexusHardware</title>
 
     <link rel="icon" href="<?= BASE_URL ?>img/core-img/logoPrincipal.png">
@@ -25,7 +24,6 @@ require_once __DIR__ . '/../config/config.php';
 </head>
 
 <body>
-    <!-- ##### Header Area Start ##### -->
     <header class="header_area">
         <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
             <!-- Classy Menu -->
@@ -98,7 +96,7 @@ require_once __DIR__ . '/../config/config.php';
 
         </div>
     </header>
-    <!-- ##### Header Area End ##### -->
+    
     <script>
         function toggleUserMenu() {
             const menu = document.getElementById("user-menu");
