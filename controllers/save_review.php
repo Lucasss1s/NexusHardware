@@ -4,40 +4,76 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../config/Database.php';
+require_once '../config/config.php';
 require_once '../models/Review.php';
 
-$conn = Database::getInstance();
-
-$productId = $_POST['product_id'] ?? null;
-$userId = $_POST['user_id'] ?? null;
-$rating = $_POST['rating'] ?? null;
-$comment = $_POST['comment'] ?? null;
-
-if (!$productId || !$userId || !$rating || !$comment) {
-    header("Location: ../views/purchase_history.php?error=Missing fields");
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: " . BASE_URL . "views/purchase_history.php?error=Please login to continue");
     exit;
 }
 
-// Verificar si ya existe una reseña
-$stmt = $conn->prepare("SELECT id FROM review WHERE product_id = :product AND user_id = :user LIMIT 1");
+if (!isset($_SESSION['user']['id'])) {
+    header("Location: " . BASE_URL . "views/login_register.php");
+    exit;
+}
+
+$conn = Database::getInstance();
+
+$productId = isset($_POST['product_id']) ? (int)$_POST['product_id'] : null;
+$rating    = isset($_POST['rating']) ? (int)$_POST['rating'] : null;
+$comment   = isset($_POST['comment']) ? trim($_POST['comment']) : null;
+
+$userId = (int) $_SESSION['user']['id'];
+
+if (!$productId || !$rating || !$comment) {
+    header("Location: " . BASE_URL . "views/purchase_history.php?error=Missing fields");
+    exit;
+}
+
+if ($rating < 1 || $rating > 5) {
+    header("Location: " . BASE_URL . "views/purchase_history.php?error=Invalid rating");
+    exit;
+}
+
+$stmt = $conn->prepare("
+    SELECT id 
+    FROM review 
+    WHERE product_id = :product AND user_id = :user 
+    LIMIT 1
+");
 $stmt->execute([
     ':product' => $productId,
-    ':user' => $userId
+    ':user'    => $userId
 ]);
 
-if ($existing = $stmt->fetch(PDO::FETCH_ASSOC)) {
+$existing = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($existing) {
     // Update
-    $update = $conn->prepare("UPDATE review SET rating = :rating, comment = :comment, created_at = NOW() WHERE id = :id");
+    $update = $conn->prepare("
+        UPDATE review 
+        SET rating = :rating,
+            comment = :comment,
+            created_at = NOW()
+        WHERE id = :id
+    ");
     $update->execute([
-        ':rating' => $rating,
+        ':rating'  => $rating,
         ':comment' => $comment,
-        ':id' => $existing['id']
+        ':id'      => $existing['id']
     ]);
 } else {
     // Insert
-    $review = new Review(0, (int)$productId, (int)$userId, (int)$rating, $comment, date('Y-m-d H:i:s'));
+    $review = new Review(
+        0,
+        $productId,
+        $userId,
+        $rating,
+        $comment,
+        date('Y-m-d H:i:s')
+    );
     $review->save($conn);
 }
 
-header("Location: ../views/purchase_history.php?success=1");
+header("Location: " . BASE_URL . "views/purchase_history.php?success=1");
 exit;

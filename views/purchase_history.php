@@ -119,7 +119,6 @@ include '../components/header.php';
 
                                                 <div class="modal-body">
                                                     <input type="hidden" name="product_id" value="<?= $detail->getProductId() ?>">
-                                                    <input type="hidden" name="user_id" value="<?= $userId ?>">
 
                                                     <div class="mb-3">
                                                         <label class="form-label">Rating</label>
