@@ -1,64 +1,65 @@
 <?php
+require_once '../config/config.php';
 require_once '../config/Database.php';
+
 $conn = Database::getInstance();
 
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: " . BASE_URL . "views/login_register.php");
+    exit;
+}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullName = trim($_POST['full_name']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
-    $phone = trim($_POST['phone']) ?: null;
+$fullName = trim($_POST['full_name'] ?? '');
+$email    = trim($_POST['email'] ?? '');
+$password = $_POST['password'] ?? '';
+$phone    = trim($_POST['phone'] ?? '') ?: null;
 
-    // Validar campos básicos
-    if (!$fullName || !$email || !$password) {
-        header("Location: ../views/login_register.php?error=All fields are required");
+if ($fullName === '' || $email === '' || $password === '') {
+    header("Location: " . BASE_URL . "views/login_register.php?error=All fields are required");
+    exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    header("Location: " . BASE_URL . "views/login_register.php?error=Invalid email address");
+    exit;
+}
+
+try {
+    // Check email uniqueness
+    $stmt = $conn->prepare("SELECT id FROM user WHERE email = :email LIMIT 1");
+    $stmt->execute([':email' => $email]);
+
+    if ($stmt->fetch()) {
+        header("Location: " . BASE_URL . "views/login_register.php?error=Email already registered");
         exit;
     }
 
-    try {
-        // Verificar si el email ya está registrado
-        $stmt = $conn->prepare("SELECT id FROM user WHERE email = :email");
-        $stmt->execute([':email' => $email]);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($stmt->fetch()) {
-            header("Location: ../views/login_register.php?error=Email is already registered");
-            exit;
-        }
+    $stmt = $conn->prepare("
+        INSERT INTO user (full_name, email, password, phone)
+        VALUES (:full_name, :email, :password, :phone)
+    ");
+    $stmt->execute([
+        ':full_name' => $fullName,
+        ':email'     => $email,
+        ':password'  => $hashedPassword,
+        ':phone'     => $phone
+    ]);
 
-        // Insertar en user
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $userId = (int) $conn->lastInsertId();
 
-        $stmt = $conn->prepare("
-            INSERT INTO user (full_name, email, password, phone)
-            VALUES (:full_name, :email, :password, :phone)
-        ");
-        $stmt->execute([
-            ':full_name' => $fullName,
-            ':email' => $email,
-            ':password' => $hashedPassword,
-            ':phone' => $phone
-        ]);
+    $stmt = $conn->prepare("
+        INSERT INTO customer (user_id, registration_date)
+        VALUES (:user_id, NOW())
+    ");
+    $stmt->execute([':user_id' => $userId]);
 
-        // Obtener el ID del nuevo usuario
-        $userId = $conn->lastInsertId();
+    header("Location: " . BASE_URL . "views/login_register.php?success=account_created");
+    exit;
 
-        // Insertar en customer
-        $stmt = $conn->prepare("
-            INSERT INTO customer (user_id, registration_date)
-            VALUES (:user_id, NOW())
-        ");
-        $stmt->execute([':user_id' => $userId]);
+} catch (PDOException $e) {
 
-        // Redirigir con éxito
-        header("Location: ../views/login_register.php?success=Account created successfully");
-        exit;
-    } catch (PDOException $e) {
-        // Error general
-        header("Location: ../views/login_register.php?error=Registration failed: " . urlencode($e->getMessage()));
-        exit;
-    }
-} else {
-    // Si alguien accede directo por GET
-    header("Location: ../views/login_register.php");
+    header("Location: " . BASE_URL . "views/login_register.php?error=Registration failed");
     exit;
 }

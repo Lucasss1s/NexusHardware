@@ -4,48 +4,67 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once '../config/Database.php';
-$conn = Database::getInstance();
-
 require_once '../models/Payment.php';
 require_once '../models/Order.php';
+require_once '../config/config.php';
 
-if (!isset($_SESSION['user']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../login_register.php");
+$conn = Database::getInstance();
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['user_id'])) {
+    header("Location: " . BASE_URL . "views/login_register.php");
     exit;
 }
 
-$orderId = (int)$_POST['order_id'];
-$method = $_POST['method'] ?? 'Credit Card';
+$orderId = isset($_POST['order_id']) ? (int) $_POST['order_id'] : 0;
+$method  = isset($_POST['method']) ? trim($_POST['method']) : 'Credit Card';
+
+if ($orderId <= 0) {
+    header("Location: " . BASE_URL . "views/checkout.php?error=invalid_order");
+    exit;
+}
 
 try {
     $conn->beginTransaction();
 
-    // Verificar que la orden exista y pertenezca al usuario
     $order = Order::getById($conn, $orderId);
-    if (!$order || $order->getUserId() !== $_SESSION['user']['id']) {
-        throw new Exception("Orden no válida.");
+
+    if (!$order || $order->getUserId() !== $_SESSION['user_id']) {
+        throw new Exception('Invalid order');
     }
 
-    // Crear el pago
+    if ($order->getStatus() !== 'Pending') {
+        throw new Exception('Order already processed');
+    }
+
     $payment = Payment::create($conn, $method, 'Paid');
     if (!$payment) {
-        throw new Exception("Error al registrar el pago.");
+        throw new Exception('Payment creation failed');
     }
 
-    // Actualizar la orden: asignar id_payment y estado
-    $stmt = $conn->prepare("UPDATE `order` SET id_payment = :id_payment, status = 'Completed' WHERE id_order = :id_order");
+    $stmt = $conn->prepare("
+        UPDATE `order`
+        SET id_payment = :id_payment,
+            status = 'Completed'
+        WHERE id_order = :id_order
+    ");
+
     $stmt->execute([
         ':id_payment' => $payment->getId(),
-        ':id_order' => $orderId
+        ':id_order'   => $orderId
     ]);
 
     $conn->commit();
 
-    // Redirigir al historial
-    header("Location: ../views/successful_purchase.php");
+    header("Location: " . BASE_URL . "views/successful_purchase.php?success=1");
     exit;
 
 } catch (Exception $e) {
-    $conn->rollBack();
-    die("Error en el pago: " . $e->getMessage());
+    if ($conn->inTransaction()) {
+        $conn->rollBack();
+    }
+
+    error_log('[PROCESS_PAYMENT] ' . $e->getMessage());
+
+    header("Location: " . BASE_URL . "views/checkout.php?error=payment_failed");
+    exit;
 }

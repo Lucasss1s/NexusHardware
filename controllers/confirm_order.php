@@ -1,97 +1,139 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once '../config/config.php';
 require_once '../config/Database.php';
-$conn = Database::getInstance();
 
 require_once '../models/Order.php';
 require_once '../models/OrderDetail.php';
 require_once '../models/CartItem.php';
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['cart_id'])) {
-    header("Location: login_register.php");
+$conn = Database::getInstance();
+
+if (
+    $_SERVER['REQUEST_METHOD'] !== 'POST' ||
+    empty($_SESSION['user_id']) ||
+    empty($_SESSION['cart_id'])
+) {
+    header("Location: " . BASE_URL . "views/login_register.php");
     exit;
 }
 
-$userId = $_SESSION['user']['id'];
-$cartId = $_SESSION['cart_id'];
+$userId = (int) $_SESSION['user_id'];
+$cartId = (int) $_SESSION['cart_id'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $street = trim($_POST['street']);
-    $number = trim($_POST['number']);
-    $city = trim($_POST['city']);
-    $state = trim($_POST['state']);
-    $postalCode = trim($_POST['postal_code']);
-    $country = trim($_POST['country']);
-    $description = trim($_POST['description'] ?? '');
+$street      = isset($_POST['street']) ? trim($_POST['street']) : '';
+$number      = isset($_POST['number']) ? trim($_POST['number']) : '';
+$city        = isset($_POST['city']) ? trim($_POST['city']) : '';
+$state       = isset($_POST['state']) ? trim($_POST['state']) : '';
+$postalCode  = isset($_POST['postal_code']) ? trim($_POST['postal_code']) : '';
+$country     = isset($_POST['country']) ? trim($_POST['country']) : '';
+$description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
-    $orderStatus = 'Processing';
+if (
+    $street === '' ||
+    $number === '' ||
+    $city === '' ||
+    $state === '' ||
+    $postalCode === '' ||
+    $country === ''
+) {
+    header("Location: " . BASE_URL . "views/checkout.php?error=invalid_address");
+    exit;
+}
 
-    try {
-        $conn->beginTransaction();
+try {
+    $conn->beginTransaction();
 
-        // Insertar dirección
-        $stmtAddress = $conn->prepare("
-            INSERT INTO address (user_id, street, number, city, state, postal_code, country, description)
-            VALUES (:user_id, :street, :number, :city, :state, :postal_code, :country, :description)
-        ");
-        $stmtAddress->execute([
-            ':user_id' => $userId,
-            ':street' => $street,
-            ':number' => $number,
-            ':city' => $city,
-            ':state' => $state,
-            ':postal_code' => $postalCode,
-            ':country' => $country,
-            ':description' => $description
-        ]);
-        $id_address = (int) $conn->lastInsertId();
+    $stmtAddress = $conn->prepare("
+        INSERT INTO address (
+            user_id,
+            street,
+            number,
+            city,
+            state,
+            postal_code,
+            country,
+            description
+        ) VALUES (
+            :user_id,
+            :street,
+            :number,
+            :city,
+            :state,
+            :postal_code,
+            :country,
+            :description
+        )
+    ");
 
-        // Obtener ítems del carrito
-        $cartItems = CartItem::getByCartId($conn, $cartId);
-        if (empty($cartItems)) {
-            throw new Exception("El carrito está vacío.");
-        }
+    $stmtAddress->execute([
+        ':user_id'      => $userId,
+        ':street'       => $street,
+        ':number'       => $number,
+        ':city'         => $city,
+        ':state'        => $state,
+        ':postal_code'  => $postalCode,
+        ':country'      => $country,
+        ':description'  => $description
+    ]);
 
-        $total = 0.0;
-        foreach ($cartItems as $item) {
-            $price = isset($item['price']) ? (float) $item['price'] : 0.0;
-            $quantity = isset($item['quantity']) ? (int) $item['quantity'] : 0;
-            $total += $price * $quantity;
-        }
+    $addressId = (int) $conn->lastInsertId();
 
-        // Crear orden SIN pago aún
-        $order = Order::create($conn, $userId, null, $id_address, $orderStatus, $total);
+    $cartItems = CartItem::getByCartId($conn, $cartId);
 
-        // Detalles de la orden
-        foreach ($cartItems as $item) {
-            OrderDetail::create(
-                $conn,
-                $order->getId(),
-                $item['product_id'],
-                $item['quantity'],
-                $item['price']
-            );
-        }
-
-        // Vaciar carrito
-        CartItem::deleteByCartId($conn, $cartId);
-
-        $conn->commit();
-
-        // Redirigir al pago
-        header("Location: ../views/pay.php?order_id=" . $order->getId());
-        exit;
-
-    } catch (Exception $e) {
-        $conn->rollBack();
-        die("Error al procesar el pedido: " . $e->getMessage());
+    if (empty($cartItems)) {
+        throw new Exception('Cart is empty');
     }
-} else {
-    header("Location: ../views/checkout.php");
+
+    $total = 0.0;
+
+    foreach ($cartItems as $item) {
+        $price    = isset($item['price']) ? (float) $item['price'] : 0.0;
+        $quantity = isset($item['quantity']) ? (int) $item['quantity'] : 0;
+
+        $total += $price * $quantity;
+    }
+
+    $order = Order::create(
+        $conn,
+        $userId,
+        null,
+        $addressId,
+        'Pending',
+        $total
+    );
+
+    foreach ($cartItems as $item) {
+        OrderDetail::create(
+            $conn,
+            $order->getId(),
+            $item['product_id'],
+            $item['quantity'],
+            $item['price']
+        );
+    }
+
+    CartItem::deleteByCartId($conn, $cartId);
+
+    $conn->commit();
+
+    header(
+        "Location: " . BASE_URL .
+        "views/pay.php?order_id=" . $order->getId()
+    );
+    exit;
+
+} catch (Throwable $e) {
+    if ($conn->inTransaction()) {
+        $conn->rollBack();
+    }
+
+    error_log('[CONFIRM_ORDER] ' . $e->getMessage());
+
+    header("Location: " . BASE_URL . "views/checkout.php?error=order_failed");
     exit;
 }
-
-?>

@@ -2,14 +2,14 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once '../config/Database.php';
+require_once '../config/config.php';
 
 if (!isset($_SESSION['user'])) {
     header("Location: " . BASE_URL . "views/login_register.php?error=Please login to continue");
     exit;
 }
 
-require_once '../config/Database.php';
-require_once '../config/config.php';
 $conn = Database::getInstance();
 
 require_once '../models/Review.php';
