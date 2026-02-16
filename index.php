@@ -236,19 +236,6 @@ include 'components/header.php';
 
 <?php include 'components/footer.php'; ?>
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="<?= BASE_URL ?>js/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
-    <script src="<?= BASE_URL ?>js/plugins.js"></script>
-    <!-- Classy Nav js -->
-    <script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
-    <!-- Active js -->
-    <script src="<?= BASE_URL ?>js/active.js"></script>
-
 </body>
 
 </html>

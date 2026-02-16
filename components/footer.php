@@ -96,3 +96,19 @@ require_once __DIR__ . '/../config/config.php';
         </div>
     </div>
 </footer>
+
+<!-- Vendor JS -->
+<script src="<?= BASE_URL ?>js/vendor/jquery/jquery-2.2.4.min.js"></script>
+<script src="<?= BASE_URL ?>js/vendor/popper.min.js"></script>
+<script src="<?= BASE_URL ?>js/vendor/bootstrap.min.js"></script>
+<script src="<?= BASE_URL ?>js/vendor/plugins.js"></script>
+<script src="<?= BASE_URL ?>js/vendor/classy-nav.min.js"></script>
+<script src="<?= BASE_URL ?>js/vendor/active.js"></script>
+
+<!-- Core JS -->
+<script src="<?= BASE_URL ?>js/core/app.js"></script>
+
+<?php if (!empty($pageScript)): ?>
+    <script src="<?= BASE_URL ?>js/pages/<?= $pageScript ?>"></script>
+<?php endif; ?>
+

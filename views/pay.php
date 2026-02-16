@@ -22,6 +22,7 @@ if (!$order || $order->getUserId() !== $_SESSION['user']['id']) {
     die("Orden no válida o no autorizada.");
 }
 
+$pageScript = 'shop.js';
 include '../components/header.php';
 ?>
 
@@ -99,18 +100,5 @@ include '../components/header.php';
         </button>
     </form>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("payment-form");
-        form.addEventListener("submit", function (event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add("was-validated");
-        });
-    });
-</script>
 
 <?php include '../components/footer.php'; ?>

@@ -1,7 +1,6 @@
 <?php
 require_once '../controllers/require_admin.php';
-require_once '../config/Database.php';
-$conn = Database::getInstance();
+require_once '../config/bootstrap.php';
 
 require_once '../models/User.php';
 
@@ -43,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Insertar en admin o customer
                 if ($role === 'admin') {
                     $conn->prepare("INSERT INTO admin (user_id, role) VALUES (:user_id, 'admin')")
-                         ->execute([':user_id' => $userId]);
+                            ->execute([':user_id' => $userId]);
                 } else {
                     $conn->prepare("INSERT INTO customer (user_id, registration_date) VALUES (:user_id, NOW())")
-                         ->execute([':user_id' => $userId]);
+                            ->execute([':user_id' => $userId]);
                 }
 
                 $success = "User created successfully as $role.";

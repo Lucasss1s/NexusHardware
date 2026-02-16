@@ -1,7 +1,6 @@
 <?php
 require_once '../controllers/require_admin.php';
-require_once '../config/Database.php';
-$conn = Database::getInstance();
+require_once '../config/bootstrap.php';
 
 
 $id = $_GET['id'] ?? null;

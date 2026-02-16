@@ -1,8 +1,7 @@
 <?php
 require_once '../controllers/require_admin.php';
 
-require_once '../config/Database.php';
-$conn = Database::getInstance();
+require_once '../config/bootstrap.php';
 
 require_once '../models/Product.php';
 require_once '../models/Category.php';
@@ -69,7 +68,7 @@ try {
                 ?>
                 <tr>
                     <td><?= $product->getId() ?></td>
-                    <td><img src="<?= $product->getImage() ?>" width="60"></td>
+                    <td><img src="<?= BASE_URL . $product->getImage() ?>" width="60"></td>
                     <td><?= $product->getName() ?></td>
                     <td><?= $product->getBrand() ?></td>
                     <td>$<?= $product->getPrice() ?></td>

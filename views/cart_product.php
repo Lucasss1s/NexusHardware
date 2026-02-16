@@ -5,7 +5,7 @@ require_once '../models/Product.php';
 require_once '../models/Cart.php';
 require_once '../models/CartItem.php';
 
-// handle item deletion 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_item_id'])) {
     $removeId = (int)$_POST['remove_item_id'];
 
@@ -101,9 +101,3 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php include '../components/footer.php'; ?>
 
-<script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
-<script src="<?= BASE_URL ?>js/popper.min.js"></script>
-<script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
-<script src="<?= BASE_URL ?>js/plugins.js"></script>
-<script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
-<script src="<?= BASE_URL ?>js/active.js"></script>

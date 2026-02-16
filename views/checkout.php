@@ -36,9 +36,10 @@ $total = 0;
 foreach ($items as $item) {
     $total += $item['price'] * $item['quantity'];
 }
-?>
 
-<?php include '../components/header.php'; ?>
+$pageScript = 'checkout.js';
+include '../components/header.php';
+?>
 
 <div class="container mt-5 mb-5">
     <h2>Complete Purchase</h2>
@@ -134,42 +135,8 @@ foreach ($items as $item) {
 
 <?php include '../components/footer.php'; ?>
 
-<script src="<?= BASE_URL ?>js/jquery/jquery-2.2.4.min.js"></script>
-<script src="<?= BASE_URL ?>js/popper.min.js"></script>
-<script src="<?= BASE_URL ?>js/bootstrap.min.js"></script>
-<script src="<?= BASE_URL ?>js/plugins.js"></script>
-<script src="<?= BASE_URL ?>js/classy-nav.min.js"></script>
-<script src="<?= BASE_URL ?>js/active.js"></script>
-
+<?php if ($addressData !== null): ?>
 <script>
-(function () {
-    'use strict';
-    const form = document.getElementById('addressForm');
-    form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-    }, false);
-})();
+    window.addressData = <?= json_encode($addressData) ?>;
 </script>
-
-<script>
-    document.getElementById('autoCompleteBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-
-        <?php if ($addressData !== null): ?>
-            const address = <?= json_encode($addressData) ?>;
-            document.getElementById('street').value = address.street;
-            document.getElementById('number').value = address.number;
-            document.getElementById('city').value = address.city;
-            document.getElementById('state').value = address.state;
-            document.getElementById('postal_code').value = address.postalCode;
-            document.getElementById('country').value = address.country;
-            document.getElementById('description').value = address.description ?? '';
-        <?php else: ?>
-            alert('You have no saved data to autocomplete the address.');
-        <?php endif; ?>
-    });
-</script>
+<?php endif; ?>

@@ -3,6 +3,8 @@ require_once '../config/bootstrap.php';
 
 $error = $_GET['error'] ?? null;
 $success = $_GET['success'] ?? null;
+
+$pageScript = 'login_register.js';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,35 +95,8 @@ $success = $_GET['success'] ?? null;
     </div>
 </div>
 
-<script>
-    const container = document.getElementById('container');
-    const registerBtn = document.getElementById('register');
-    const loginBtn = document.getElementById('login');
-
-    registerBtn.addEventListener('click', () => {
-        container.classList.add("active");
-    });
-
-    loginBtn.addEventListener('click', () => {
-        container.classList.remove("active");
-    });
-</script>
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-function googleLogin() {
-    google.accounts.id.initialize({
-        client_id: "TU_CLIENT_ID.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-    });
-
-    google.accounts.id.prompt(); 
-}
-
-function handleCredentialResponse(response) {
-    console.log("Token de Google (JWT):", response.credential);
-}
-</script>
 
 </body>
 </html>
