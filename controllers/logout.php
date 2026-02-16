@@ -1,9 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once '../config/config.php';
+require_once '../config/bootstrap.php';
 
 unset($_SESSION['user']);
 unset($_SESSION['cart_id']);

@@ -1,9 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once '../config/config.php';
+require_once '../config/bootstrap.php';
 
 $error = $_GET['error'] ?? null;
 $success = $_GET['success'] ?? null;

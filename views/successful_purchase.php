@@ -1,10 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once '../config/bootstrap.php';
 
 include '../components/header.php';
-require_once '../config/config.php';
 ?>
 
 <div class="container mt-5 mb-5 text-center">

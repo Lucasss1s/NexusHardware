@@ -1,8 +1,5 @@
 <?php
-require_once '../config/config.php';
-require_once '../config/Database.php';
-
-$conn = Database::getInstance();
+require_once '../config/bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: " . BASE_URL . "views/login_register.php");

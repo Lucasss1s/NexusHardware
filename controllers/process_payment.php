@@ -1,14 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once '../config/bootstrap.php';
 
-require_once '../config/Database.php';
 require_once '../models/Payment.php';
 require_once '../models/Order.php';
-require_once '../config/config.php';
 
-$conn = Database::getInstance();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['user_id'])) {
     header("Location: " . BASE_URL . "views/login_register.php");

@@ -1,12 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once '../config/Database.php';
-require_once '../config/config.php';
-
-$conn = Database::getInstance();
+require_once '../config/bootstrap.php';
 
 require_once '../models/Product.php';
 require_once '../models/Cart.php';
