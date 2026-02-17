@@ -12,22 +12,21 @@ $password = $_POST['password'] ?? '';
 $phone    = trim($_POST['phone'] ?? '') ?: null;
 
 if ($fullName === '' || $email === '' || $password === '') {
-    header("Location: " . BASE_URL . "views/login_register.php?error=All fields are required");
+    header("Location: " . BASE_URL . "views/login_register.php?error=missing_fields");
     exit;
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: " . BASE_URL . "views/login_register.php?error=Invalid email address");
+    header("Location: " . BASE_URL . "views/login_register.php?error=invalid_email");
     exit;
 }
 
 try {
-    // Check email uniqueness
     $stmt = $conn->prepare("SELECT id FROM user WHERE email = :email LIMIT 1");
     $stmt->execute([':email' => $email]);
 
     if ($stmt->fetch()) {
-        header("Location: " . BASE_URL . "views/login_register.php?error=Email already registered");
+        header("Location: " . BASE_URL . "views/login_register.php?error=email_exists");
         exit;
     }
 
@@ -55,8 +54,8 @@ try {
     header("Location: " . BASE_URL . "views/login_register.php?success=account_created");
     exit;
 
-} catch (PDOException $e) {
-
-    header("Location: " . BASE_URL . "views/login_register.php?error=Registration failed");
+} catch (Throwable $e) {
+    error_log('[REGISTER] ' . $e->getMessage());
+    header("Location: " . BASE_URL . "views/login_register.php?error=register_failed");
     exit;
 }

@@ -5,6 +5,12 @@ $error = $_GET['error'] ?? null;
 $success = $_GET['success'] ?? null;
 
 $pageScript = 'login_register.js';
+$messages = [
+    'missing_credentials' => 'Please enter email and password',
+    'invalid_credentials' => 'Invalid email or password',
+    'email_exists'        => 'Email already registered',
+    'account_created'     => 'Account created successfully'
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">

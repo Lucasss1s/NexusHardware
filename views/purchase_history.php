@@ -1,42 +1,37 @@
 <?php
-require_once '../config/bootstrap.php';
-
-require_once '../models/Order.php';
-require_once '../models/OrderDetail.php';
-require_once '../models/Product.php';
-require_once '../models/Review.php';
-
-if (!isset($_SESSION['user'])) {
-    header("Location: " . BASE_URL . "views/login_register.php");
-    exit;
-}
-
-$userId = $_SESSION['user']['id'];
-$orders = Order::getByUserId($conn, $userId);
-
+require_once '../controllers/purchaseHistoryController.php';
 include '../components/header.php';
 ?>
 
 <div class="container mt-5 mb-5">
     <h2>Purchase history</h2>
 
-    <?php if (empty($orders)): ?>
+    <?php if (empty($ordersData)): ?>
         <p>You have no registered purchases.</p>
     <?php else: ?>
-        <?php foreach ($orders as $order): ?>
+        <?php foreach ($ordersData as $orderData): ?>
             <?php
+                $order = $orderData['order'];
                 $status = $order->getStatus();
                 $badgeClass = ($status === 'Completed') ? 'bg-success' : 'bg-secondary';
             ?>
+
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
-                        <strong>Order #<?= $order->getId() ?></strong> - <?= $order->getOrderDate() ?>
+                        <strong>Order #<?= $order->getId() ?></strong>
+                        - <?= $order->getOrderDate() ?>
                     </div>
                     <div>
-                        <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($status) ?></span>
+                        <span class="badge <?= $badgeClass ?>">
+                            <?= htmlspecialchars($status) ?>
+                        </span>
+
                         <?php if ($status !== 'Completed'): ?>
-                            <a href="<?= BASE_URL ?>views/pay.php?order_id=<?= $order->getId() ?>" class="btn btn-warning btn-sm ms-2 btn-no-hover">
+                            <a
+                                href="<?= BASE_URL ?>views/pay.php?order_id=<?= $order->getId() ?>"
+                                class="btn btn-warning btn-sm ms-2 btn-no-hover"
+                            >
                                 Pay
                             </a>
                         <?php endif; ?>
@@ -44,50 +39,36 @@ include '../components/header.php';
                 </div>
 
                 <div class="card-body">
-                    <p><strong>Total:</strong> $<?= number_format($order->getTotal(), 2) ?></p>
+                    <p>
+                        <strong>Total:</strong>
+                        $<?= number_format($order->getTotal(), 2) ?>
+                    </p>
+
                     <h6>Products:</h6>
 
                     <ul class="list-group">
-                        <?php
-                        $details = OrderDetail::getByOrderId($conn, $order->getId());
+                        <?php foreach ($orderData['details'] as $item): ?>
+                            <?php
+                                $detail = $item['detail'];
+                                $product = $item['product'];
+                                $review = $item['review'];
+                            ?>
 
-                        foreach ($details as $detail):
-                            $stmt = $conn->prepare("SELECT name, img FROM product WHERE id = :id");
-                            $stmt->execute([':id' => $detail->getProductId()]);
-                            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                            $existingReview = null;
-                            if ($status === 'Completed') {
-                                $reviewStmt = $conn->prepare("SELECT * FROM review WHERE user_id = :user AND product_id = :product LIMIT 1");
-                                $reviewStmt->execute([
-                                    ':user' => $userId,
-                                    ':product' => $detail->getProductId()
-                                ]);
-                                $row = $reviewStmt->fetch(PDO::FETCH_ASSOC);
-                                if ($row) {
-                                    $existingReview = new Review(
-                                        $row['id'],
-                                        $row['product_id'],
-                                        $row['user_id'],
-                                        $row['rating'],
-                                        $row['comment'],
-                                        $row['created_at']
-                                    );
-                                }
-                            }
-                        ?>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <strong><?= htmlspecialchars($product['name'] ?? 'Producto eliminado') ?></strong><br>
+                                    <strong>
+                                        <?= htmlspecialchars($product['name'] ?? 'Producto eliminado') ?>
+                                    </strong><br>
+
                                     Amount: <?= $detail->getQuantity() ?>
-                                    - Unit price: $<?= number_format($detail->getUnitPrice(), 2) ?>
+                                    - Unit price:
+                                    $<?= number_format($detail->getUnitPrice(), 2) ?>
 
                                     <?php if ($status === 'Completed'): ?>
                                         <div class="mt-2">
-                                            <button type="button" class="btn btn-sm btn-outline-primary"
-                                                data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" 
                                                 data-bs-target="#reviewModal_<?= $detail->getProductId() ?>">
-                                                <?= $existingReview ? 'Edit Review' : 'Leave Review' ?>
+                                                <?= $review ? 'Edit Review' : 'Leave Review' ?>
                                             </button>
                                         </div>
                                     <?php endif; ?>
@@ -98,15 +79,15 @@ include '../components/header.php';
                                 <?php endif; ?>
                             </li>
 
-                            <!-- Review Modal -->
                             <?php if ($status === 'Completed'): ?>
+                                <!-- Review Modal -->
                                 <div class="modal fade" id="reviewModal_<?= $detail->getProductId() ?>" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <form method="POST" action="<?= BASE_URL ?>controllers/save_review.php">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        <?= $existingReview ? 'Edit your review' : 'Leave a review' ?>
+                                                        <?= $review ? 'Edit your review' : 'Leave a review' ?>
                                                     </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
@@ -119,7 +100,7 @@ include '../components/header.php';
                                                         <select name="rating" class="form-select" required>
                                                             <?php for ($i = 1; $i <= 5; $i++): ?>
                                                                 <option value="<?= $i ?>"
-                                                                    <?= ($existingReview && $existingReview->getRating() === $i) ? 'selected' : '' ?>>
+                                                                    <?= ($review && $review->getRating() === $i) ? 'selected' : '' ?>>
                                                                     <?= $i ?> ⭐
                                                                 </option>
                                                             <?php endfor; ?>
@@ -128,13 +109,18 @@ include '../components/header.php';
 
                                                     <div class="mb-3">
                                                         <label class="form-label">Comment</label>
-                                                        <textarea name="comment" class="form-control" rows="3" required><?= $existingReview ? htmlspecialchars($existingReview->getComment()) : '' ?></textarea>
+                                                        <textarea
+                                                            name="comment"
+                                                            class="form-control"
+                                                            rows="3"
+                                                            required
+                                                        ><?= $review ? htmlspecialchars($review->getComment()) : '' ?></textarea>
                                                     </div>
                                                 </div>
 
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">
-                                                        <?= $existingReview ? 'Save Changes' : 'Submit Review' ?>
+                                                        <?= $review ? 'Save Changes' : 'Submit Review' ?>
                                                     </button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         Cancel
@@ -155,7 +141,6 @@ include '../components/header.php';
 
 <?php include '../components/footer.php'; ?>
 
-<!-- Scripts -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

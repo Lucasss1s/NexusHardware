@@ -1,6 +1,6 @@
 <?php
+$pageScript = 'single_product.js';
 require_once '../config/bootstrap.php';
-
 include '../components/header.php';
 ?>
 

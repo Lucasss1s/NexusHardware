@@ -1,41 +1,6 @@
 <?php
-require_once '../config/bootstrap.php';
-
-require_once '../models/Product.php';
-require_once '../models/Category.php';
-require_once '../models/Cart.php';
-require_once '../models/CartItem.php';
-
-// Manage adding to cart
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart']) && isset($_POST['product_id'])) {
-    if (!isset($_SESSION['cart_id'])) {
-        $userId = $_SESSION['user']['id'] ?? null;
-
-        if ($userId) {
-            $stmt = $conn->prepare("SELECT id FROM cart WHERE user_id = :user_id LIMIT 1");
-            $stmt->execute([':user_id' => $userId]);
-            $existingCart = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($existingCart) {
-                $_SESSION['cart_id'] = $existingCart['id'];
-                $cart = Cart::getById($existingCart['id'], $conn);
-            } else {
-                $cart = Cart::create($conn, $userId);
-                $_SESSION['cart_id'] = $cart->getId();
-            }
-        } else {
-            // User not logged in: cart without user_id
-            $cart = Cart::create($conn, null);
-            $_SESSION['cart_id'] = $cart->getId();
-        }
-    } else {
-        $cart = Cart::getById($_SESSION['cart_id'], $conn);
-    }
-
-    $productId = (int) $_POST['product_id'];
-    CartItem::addToCart($conn, $cart->getId(), $productId, 1);
-}
-
+require_once '../controllers/shopController.php';
+$pageScript = 'shop.js';
 include '../components/header.php';
 ?>
 
@@ -67,9 +32,6 @@ include '../components/header.php';
                         <h6 class="widget-title mb-30">Catagories</h6>
 
                         <!--  Catagories  -->
-                        <?php
-                        $categories = Category::getAll($conn);
-                        ?>
                         <div class="catagories-menu">
                             <ul id="menu-content2" class="menu-content collapse show">
                                 <!-- Single Item -->
@@ -206,7 +168,3 @@ include '../components/header.php';
 <!-- ##### Shop Grid Area End ##### -->
 
 <?php include '../components/footer.php'; ?>
-
-</body>
-
-</html>
