@@ -4,7 +4,6 @@ require_once '../controllers/singleProductController.php';
 include '../components/header.php';
 ?>
 
-<!-- ##### Single Product Details Area Start ##### -->
 <section class="single_product_details_area d-flex align-items-center">
 
     <!-- Single Product Thumb -->

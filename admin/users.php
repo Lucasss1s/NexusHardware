@@ -1,15 +1,11 @@
 <?php
-require_once '../controllers/require_admin.php';
-require_once '../config/bootstrap.php';
+require_once '../middlewares/requireAuth.php';
+require_once '../middlewares/requireAdmin.php';
 
+require_once '../config/bootstrap.php';
 require_once '../models/User.php';
 
-try {
-    $users = User::getAll($conn);
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-    die();
-}
+$users = User::getAll($conn);
 ?>
 
 <!DOCTYPE html>

@@ -6,16 +6,7 @@ require_once '../models/OrderDetail.php';
 require_once '../models/CartItem.php';
 
 
-if (
-    $_SERVER['REQUEST_METHOD'] !== 'POST' ||
-    empty($_SESSION['user_id']) ||
-    empty($_SESSION['cart_id'])
-) {
-    header("Location: " . BASE_URL . "views/login_register.php");
-    exit;
-}
-
-$userId = (int) $_SESSION['user_id'];
+$userId = (int) ($_SESSION['user']['id'] ?? 0);
 $cartId = (int) $_SESSION['cart_id'];
 
 $street      = isset($_POST['street']) ? trim($_POST['street']) : '';

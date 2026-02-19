@@ -1,4 +1,8 @@
 <?php
+require_once '../middlewares/requireAuth.php';
+require_once '../middlewares/requireCustomer.php';
+require_once '../middlewares/requireCart.php';
+
 $pageScript = 'pay.js';
 require_once '../controllers/payController.php';
 include '../components/header.php';

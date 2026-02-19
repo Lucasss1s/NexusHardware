@@ -1,4 +1,7 @@
 <?php
+require_once '../middlewares/requireAuth.php';
+require_once '../middlewares/requireCustomer.php';
+
 require_once '../controllers/purchaseHistoryController.php';
 include '../components/header.php';
 ?>

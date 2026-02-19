@@ -1,6 +1,6 @@
 <?php
 require_once '../controllers/shopController.php';
-$pageScript = 'shop.js';
+
 include '../components/header.php';
 ?>
 

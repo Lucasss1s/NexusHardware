@@ -1,4 +1,8 @@
 <?php
+require_once '../middlewares/requireAuth.php';
+require_once '../middlewares/requireCustomer.php';
+require_once '../middlewares/requireCart.php';
+
 require_once '../controllers/checkoutController.php';
 
 $pageScript = 'checkout.js';

@@ -96,7 +96,7 @@ require_once __DIR__ . '/../config/config.php';
             </div>
         </div>
     </footer>
-    
+
 </body>
 </html>
 
@@ -112,6 +112,6 @@ require_once __DIR__ . '/../config/config.php';
 <script src="<?= BASE_URL ?>js/core/app.js"></script>
 
 <?php if (!empty($pageScript)): ?>
-    <script src="<?= BASE_URL ?>js/pages/<?= $pageScript ?>"></script>
+    <script src="<?= BASE_URL ?>js/views/<?= $pageScript ?>"></script>
 <?php endif; ?>
 

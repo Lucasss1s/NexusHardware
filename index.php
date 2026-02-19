@@ -3,7 +3,6 @@ require_once 'config/bootstrap.php';
 include 'components/header.php'; 
 ?>
 
-    <!-- ##### Welcome Area Start ##### -->
     <section class="welcome_area bg-img background-overlay" style="background-image: url(<?= BASE_URL ?>img/bg-img/bg1.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -16,9 +15,7 @@ include 'components/header.php';
             </div>
         </div>
     </section>
-    <!-- ##### Welcome Area End ##### -->
 
-    <!-- ##### Top Catagory Area Start ##### -->
     <div class="top_catagory_area section-padding-80 clearfix">
         <div class="container">
             <div class="row justify-content-center">
@@ -46,9 +43,7 @@ include 'components/header.php';
             </div>
         </div>
     </div>
-    <!-- ##### Top Catagory Area End ##### -->
 
-    <!-- ##### CTA Area Start ##### -->
     <section class="welcome_area bg-img background-overlay" style="background-image: url(<?= BASE_URL ?>img/bg-img/banner2.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
@@ -59,9 +54,7 @@ include 'components/header.php';
             </div>
         </div>
     </section>
-    <!-- ##### CTA Area End ##### -->
 
-    <!-- ##### Info Section Start ##### -->
 <section class="info-section py-5">
     <div class="container">
         <div class="row text-center">
@@ -89,10 +82,7 @@ include 'components/header.php';
         </div>
     </div>
 </section>
-<!-- ##### Info Section End ##### -->
 
-
-    <!-- ##### New Arrivals Area Start ##### -->
     <section class="new_arrivals_area section-padding-80 clearfix">
         <div class="container">
             <div class="row">
@@ -111,14 +101,11 @@ include 'components/header.php';
 
                         <!-- Single Product -->
                         <div class="single-product-wrapper">
-                            <!-- Product Image -->
                             <div class="product-img">
                                 <img src="<?= BASE_URL ?>img/product-img/motherboard-asus-b550m-a-wifi-am4.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Hover Thumb -->
                                 <img class="hover-img" src="<?= BASE_URL ?>img/product-img/motherboard-asus-b550m-a-wifi-am4.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
                                 </div>
@@ -135,14 +122,11 @@ include 'components/header.php';
 
                         <!-- Single Product -->
                         <div class="single-product-wrapper">
-                            <!-- Product Image -->
                             <div class="product-img">
                                 <img src="<?= BASE_URL ?>img/product-img/silla-gamer.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Hover Thumb -->
                                 <img class="hover-img" src="<?= BASE_URL ?>img/product-img/silla-gamer.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
                                 </div>
@@ -159,14 +143,11 @@ include 'components/header.php';
 
                         <!-- Single Product -->
                         <div class="single-product-wrapper">
-                            <!-- Product Image -->
                             <div class="product-img">
                                 <img src="<?= BASE_URL ?>img/product-img/microfono-redragon-fenris-gm301-rgb.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Hover Thumb -->
                                 <img class="hover-img" src="<?= BASE_URL ?>img/product-img/microfono-redragon-fenris-gm301-rgb.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
                                 </div>
@@ -183,14 +164,11 @@ include 'components/header.php';
 
                         <!-- Single Product -->
                         <div class="single-product-wrapper">
-                            <!-- Product Image -->
                             <div class="product-img">
                                 <img src="<?= BASE_URL ?>img/product-img/mouse-logitech-g305-wireless.jpg" alt="" 
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Hover Thumb -->
                                 <img class="hover-img" src="<?= BASE_URL ?>img/product-img/mouse-logitech-g305-wireless.jpg" alt=""
                                 style="width: 100%; height: 300px; object-fit: contain; background-color: #fff;">
-                                <!-- Favourite -->
                                 <div class="product-favourite">
                                     <a href="#" class="favme fa fa-heart"></a>
                                 </div>
@@ -209,9 +187,7 @@ include 'components/header.php';
             </div>
         </div>
     </section>
-    <!-- ##### New Arrivals Area End ##### -->
 
-    <!-- ##### Brands Area Start ##### -->
     <div class="brands-area d-flex align-items-center justify-content-between">
         <div class="single-brands-logo">
             <img src="<?= BASE_URL ?>img/core-img/intelLogo.png" alt="">
@@ -232,7 +208,6 @@ include 'components/header.php';
             <img src="<?= BASE_URL ?>img/core-img/logitechLogo.png" alt="">
         </div>
     </div>
-    <!-- ##### Brands Area End ##### -->
 
 <?php include 'components/footer.php'; ?>
 

@@ -1,4 +1,7 @@
-<?php require_once '../controllers/require_admin.php'; ?>
+<?php 
+require_once '../middlewares/requireAuth.php';
+require_once '../middlewares/requireAdmin.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

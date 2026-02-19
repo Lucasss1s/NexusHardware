@@ -18,19 +18,19 @@ $userId = $_SESSION['user']['id'];
 $orders = Order::getByUserId($conn, $userId);
 
 /*
- Normalizamos los datos para la vista:
- $ordersData = [
-   [
-     'order' => Order,
-     'details' => [
-        [
-          'detail' => OrderDetail,
-          'product' => [...],
-          'review' => Review|null
+Normalizamos los datos para la vista:
+$ordersData = [
+    [
+    'order' => Order,
+    'details' => [
+            [
+            'detail' => OrderDetail,
+            'product' => [...],
+            'review' => Review|null
+            ]
         ]
-     ]
-   ]
- ]
+    ]
+]
 */
 $ordersData = [];
 

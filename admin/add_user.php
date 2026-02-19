@@ -1,5 +1,7 @@
 <?php
-require_once '../controllers/require_admin.php';
+require_once '../middlewares/requireAuth.php';
+require_once '../middlewares/requireAdmin.php';
+
 require_once '../config/bootstrap.php';
 
 require_once '../models/User.php';

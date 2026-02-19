@@ -4,12 +4,7 @@ require_once '../config/bootstrap.php';
 require_once '../models/Payment.php';
 require_once '../models/Order.php';
 
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_SESSION['user_id'])) {
-    header("Location: " . BASE_URL . "views/login_register.php");
-    exit;
-}
-
+$userId = (int) ($_SESSION['user']['id'] ?? 0);
 $orderId = isset($_POST['order_id']) ? (int) $_POST['order_id'] : 0;
 $method  = isset($_POST['method']) ? trim($_POST['method']) : 'Credit Card';
 
@@ -23,7 +18,7 @@ try {
 
     $order = Order::getById($conn, $orderId);
 
-    if (!$order || $order->getUserId() !== $_SESSION['user_id']) {
+    if (!$order || $order->getUserId() !== $userId) {
         throw new Exception('Invalid order');
     }
 
